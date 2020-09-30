@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Kinétwork</string>
+    <string name="navigation_drawer_open">Open Navigation Drawer</string>
+    <string name="navigation_drawer_close">Close Navigation Drawer</string>
+    <string name="sign_up">New here? <u>Sign Up!</u></string>
+    <string name="has_account">Already have an account? <u>Login</u></string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="connected">Connected</string>
+    <string name="disconnected">Disconnected</string>
+    <string name="vidchatlink">https://192.168.50.173:3000/index.html</string>
+</resources>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_chat"
+            android:icon="@drawable/ic_chat"
+            android:title="Chat" />
+        <item
+            android:id="@+id/nav_videochat"
+            android:icon="@drawable/ic_videochat"
+            android:title="Teleconference" />
+        <item
+            android:id="@+id/nav_exercise"
+            android:icon="@drawable/ic_exercise"
+            android:title="Exercise" />
+        <item
+            android:id="@+id/nav_appointment"
+            android:icon="@drawable/ic_appointment"
+            android:title="Appointments" />
+        <item
+            android:id="@+id/nav_files"
+            android:icon="@drawable/ic_files"
+            android:title="Files"/>
+    </group>
+
+    <item android:title="Actions">
+        <menu>
+            <item
+                android:id="@+id/nav_logout"
+                android:icon="@drawable/ic_logout"
+                android:title="Logout" />
+        </menu>
+    </item>
+
+</menu>

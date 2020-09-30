@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="8dp">
+
+    <Spinner
+        android:id="@+id/exerciseTypeSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"/>
+
+    <LinearLayout
+        android:id="@+id/exerciseInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/exerciseTypeSpinner"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/customborder"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <Spinner
+            android:id="@+id/exerciseNumSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/exerciseDescTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Exercise Description"
+            android:textColor="@color/Black"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/exerciseVideoLinkTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:autoLink="web"
+            android:text="https://www.youtube.com/yourexerciselink" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/heartRateTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/exerciseInfo"
+        android:layout_marginTop="50dp"
+        android:text="Heart Rate (bpm): "
+        android:textColor="@color/Black"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/bloodPressureTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/heartRateTitle"
+        android:layout_marginTop="20dp"
+        android:text="Blood Pressure (mmHg): "
+        android:textColor="@color/Black"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/heartRateEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/heartRateTitle"
+        android:layout_toEndOf="@+id/heartRateTitle"
+        android:hint="bpm" />
+
+    <EditText
+        android:id="@+id/bloodPressureSystolic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/bloodPressureTitle"
+        android:layout_toEndOf="@+id/bloodPressureTitle"
+        android:hint="Systolic" />
+
+    <EditText
+        android:id="@+id/bloodPressureDiastolic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/bloodPressureSystolic"
+        android:layout_toEndOf="@+id/bloodPressureTitle"
+        android:hint="Diastolic" />
+
+    <Button
+        android:id="@+id/getVitalSigns"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/bloodPressureDiastolic"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="80dp"
+        android:background="@color/LapisBlue"
+        android:padding="8dp"
+        android:text="Get Vital Signs"
+        android:textColor="@color/White" />
+
+    <Button
+        android:id="@+id/sendVitalSigns"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/bloodPressureDiastolic"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="80dp"
+        android:background="@color/LapisBlue"
+        android:padding="8dp"
+        android:text="Send Vital Signs"
+        android:textColor="@color/White" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="30dp"
+        android:src="@drawable/ic_tooltip"
+        android:tooltipText="Only use GET VITAL SIGNS if you have a compatible SmartWatch. Otherwise, you can manually input your Vital Signs." />
+
+</RelativeLayout>

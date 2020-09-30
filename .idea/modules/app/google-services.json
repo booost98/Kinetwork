@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "685873161948",
+    "firebase_url": "https://telemed-287215.firebaseio.com",
+    "project_id": "telemed-287215",
+    "storage_bucket": "telemed-287215.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:685873161948:android:1b97978aa7c2c463683619",
+        "android_client_info": {
+          "package_name": "com.homer.telemed"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "685873161948-p24tkgenhfj1ce8kep7mdi0ergn6gjap.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.homer.telemed",
+            "certificate_hash": "e875d355df5f2f7cf5bd3d57943ae8c973b1b3c0"
+          }
+        },
+        {
+          "client_id": "685873161948-q2lo8312601kk4jf0hvp36tpvk2ncia2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyADB7eqzVPbgwkfEhyIG0wdXKXAvat5KjA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "685873161948-q2lo8312601kk4jf0hvp36tpvk2ncia2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

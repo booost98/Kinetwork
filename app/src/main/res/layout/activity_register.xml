@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".RegisterActivity">
+
+    <ImageView
+        android:id="@+id/imageViewRegister"
+        android:layout_width="315dp"
+        android:layout_height="123.75dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="80dp"
+        app:srcCompat="@mipmap/ic_launcher"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="220dp"
+        android:text="REGISTER on Kinétwork"
+        android:textSize="20sp"
+        android:textStyle="bold"/>
+
+    <EditText
+        android:id="@+id/name"
+        android:layout_width="235dp"
+        android:layout_height="65dp"
+        android:layout_marginBottom="460dp"
+        android:layout_alignParentBottom="true"
+        android:ems="10"
+        android:hint="Full Name"
+        android:inputType="textPersonName"
+        android:layout_centerHorizontal="true"/>
+
+
+    <EditText
+        android:id="@+id/emailRegister"
+        android:layout_width="235dp"
+        android:layout_height="65dp"
+        android:layout_marginBottom="390dp"
+        android:layout_alignParentBottom="true"
+        android:ems="10"
+        android:hint="Email Address"
+        android:inputType="textEmailAddress"
+        android:layout_centerHorizontal="true"/>
+
+    <EditText
+        android:id="@+id/passwordRegister"
+        android:layout_width="235dp"
+        android:layout_height="63dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="320dp"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPassword"
+        />
+
+    <EditText
+        android:id="@+id/confirmPassword"
+        android:layout_width="235dp"
+        android:layout_height="63dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="250dp"
+        android:ems="10"
+        android:hint="Confirm Password"
+        android:inputType="textPassword"
+        />
+
+    <Button
+        android:id="@+id/registerBtn"
+        android:layout_width="235dp"
+        android:layout_height="45dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="150dp"
+        android:background="@color/DarkCyan"
+        android:text="REGISTER" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/has_account"
+        android:textSize="20sp"
+        android:textColor="@color/Blue"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="100dp"
+        android:clickable="true"
+        android:onClick="goLogin"
+        />
+
+
+
+
+
+</RelativeLayout>

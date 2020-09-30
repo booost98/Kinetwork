@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="16dp"
+    tools:context=".TherapistInfoActivity">
+
+    <TextView
+        android:id="@+id/therapistField"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:text="Orthopedics and Sports"
+        android:textColor="@color/Black"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/therapistPhone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/therapistField"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:text="(55) 477-345-67-89"
+        android:textColor="@color/Black"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/therapistAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/therapistPhone"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:gravity="center"
+        android:text="León, Guanajuato, México, colonia Las mandarinas, calle san pedro #112"
+        android:textColor="@color/Black"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/therapistSpecialtyTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/therapistAddress"
+        android:layout_marginTop="25dp"
+        android:gravity="center"
+        android:text="Specialty on:"
+        android:textColor="@color/Black"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/therapistSpecialtyList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/therapistSpecialtyTitle"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="25dp"
+        android:gravity="center"
+        android:text="Terapia Manual\n Richellis\nDermatofuncional\nEjercicio terapéutico\nPunción seca"
+        android:textColor="@color/Black"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/therapistWebsite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/therapistSpecialtyList"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="25dp"
+        android:autoLink="web"
+        android:gravity="center"
+        android:text="LinkedIn: https://www.linkedin.com/in/valeria-cabrera-lira-a92a48182\n\nInstagram: Valeriacabrera3667\n\nFacebook: Valeria Cabrera Lira"
+        android:textColor="@color/Black"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/returnToChooser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp"
+        android:background="@color/LapisBlue"
+        android:padding="8dp"
+        android:text="return to therapist chooser page"
+        android:textColor="@color/White" />
+</RelativeLayout>
