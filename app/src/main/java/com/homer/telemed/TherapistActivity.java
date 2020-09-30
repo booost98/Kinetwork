@@ -35,6 +35,7 @@ import java.util.Map;
 
 public class TherapistActivity extends AppCompatActivity implements TherapistAdapter.OnItemClickListener {
 
+    public static String selectedNameForInfo;
     private FirebaseStorage storage;
     private DatabaseReference databaseReference;
     private ValueEventListener dBListener;
@@ -135,7 +136,9 @@ public class TherapistActivity extends AppCompatActivity implements TherapistAda
 
     @Override
     public void onViewClick(int position) {
-        Toast.makeText(this, "Viewing Therapist Info...", Toast.LENGTH_SHORT).show();
+        Therapist selectedTherapist = therapists.get(position);
+        selectedNameForInfo = selectedTherapist.getName();
+        //Toast.makeText(this, "Viewing Therapist Info...", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(TherapistActivity.this, TherapistInfoActivity.class);
         startActivity(intent);
     }

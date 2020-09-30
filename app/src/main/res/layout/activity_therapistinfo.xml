@@ -90,6 +90,6 @@
         android:layout_marginBottom="16dp"
         android:background="@color/LapisBlue"
         android:padding="8dp"
-        android:text="return to therapist chooser page"
+        android:text="return"
         android:textColor="@color/White" />
 </RelativeLayout>

@@ -28,5 +28,6 @@ public class TherapistInfoActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
     }
 }
