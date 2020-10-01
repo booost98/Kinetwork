@@ -53,7 +53,8 @@
         android:text="Heart Rate (bpm): "
         android:textColor="@color/Black"
         android:textSize="20sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:visibility="invisible"/>
 
     <TextView
         android:id="@+id/bloodPressureTitle"
@@ -64,7 +65,8 @@
         android:text="Blood Pressure (mmHg): "
         android:textColor="@color/Black"
         android:textSize="20sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:visibility="invisible"/>
 
     <EditText
         android:id="@+id/heartRateEditText"
@@ -72,7 +74,8 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/heartRateTitle"
         android:layout_toEndOf="@+id/heartRateTitle"
-        android:hint="bpm" />
+        android:hint="bpm"
+        android:visibility="invisible"/>
 
     <EditText
         android:id="@+id/bloodPressureSystolic"
@@ -80,7 +83,8 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/bloodPressureTitle"
         android:layout_toEndOf="@+id/bloodPressureTitle"
-        android:hint="Systolic" />
+        android:hint="Systolic"
+        android:visibility="invisible"/>
 
     <EditText
         android:id="@+id/bloodPressureDiastolic"
@@ -88,7 +92,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/bloodPressureSystolic"
         android:layout_toEndOf="@+id/bloodPressureTitle"
-        android:hint="Diastolic" />
+        android:hint="Diastolic"
+        android:visibility="invisible"/>
 
     <Button
         android:id="@+id/getVitalSigns"
@@ -99,8 +104,9 @@
         android:layout_marginTop="80dp"
         android:background="@color/LapisBlue"
         android:padding="8dp"
-        android:text="Get Vital Signs"
-        android:textColor="@color/White" />
+        android:text="Get Vital Signs\nFrom Smartwatch"
+        android:textColor="@color/White"
+        android:visibility="invisible"/>
 
     <Button
         android:id="@+id/sendVitalSigns"
@@ -112,6 +118,19 @@
         android:background="@color/LapisBlue"
         android:padding="8dp"
         android:text="Send Vital Signs"
+        android:textColor="@color/White"
+        android:visibility="invisible"/>
+
+    <Button
+        android:id="@+id/startExercise"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/bloodPressureDiastolic"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="80dp"
+        android:background="@color/IndianRed"
+        android:padding="8dp"
+        android:text="start exercise"
         android:textColor="@color/White" />
 
     <ImageView
@@ -122,6 +141,6 @@
         android:layout_marginRight="8dp"
         android:layout_marginBottom="30dp"
         android:src="@drawable/ic_tooltip"
-        android:tooltipText="Only use GET VITAL SIGNS if you have a compatible SmartWatch. Otherwise, you can manually input your Vital Signs." />
+        android:tooltipText="Only use GET VITAL SIGNS FROM SMARTWATCH if you have a compatible SmartWatch. Otherwise, you can manually input your Vital Signs." />
 
 </RelativeLayout>

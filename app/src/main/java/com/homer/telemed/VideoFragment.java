@@ -1,7 +1,10 @@
 package com.homer.telemed;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,12 +42,13 @@ import java.util.Map;
 public class VideoFragment extends Fragment {
 
     int jsonExerciseTypeID, jsonExerciseNum;
+    int heartRateToCheck = 0;
     String jsonExerciseType, jsonExerciseDesc, jsonExerciseVidLink;
-    Button getVitalSigns, sendVitalSigns;
+    Button getVitalSigns, sendVitalSigns, startExercise;
     EditText heartRateEditText, bloodPressureSystolic, bloodPressureDiastolic;
     Intent intent;
     Spinner exerciseTypeSpinner, exerciseNumSpinner;
-    TextView exerciseDescTextView, exerciseVideoLinkTextView;
+    TextView exerciseDescTextView, exerciseVideoLinkTextView, heartRateTitle, bloodPressureTitle;
     private List<ExerciseType> exerciseTypes;
     private List<Exercise> exercises;
     private ArrayAdapter<ExerciseType> exerciseTypeSpinnerAdapter;
@@ -64,6 +68,9 @@ public class VideoFragment extends Fragment {
         intent = new Intent(getActivity(), DeviceScanActivity.class);
         getVitalSigns = view.findViewById(R.id.getVitalSigns);
         sendVitalSigns = view.findViewById(R.id.sendVitalSigns);
+        startExercise = view.findViewById(R.id.startExercise);
+        heartRateTitle = view.findViewById(R.id.heartRateTitle);
+        bloodPressureTitle = view.findViewById(R.id.bloodPressureTitle);
         heartRateEditText = view.findViewById(R.id.heartRateEditText);
         bloodPressureSystolic = view.findViewById(R.id.bloodPressureSystolic);
         bloodPressureDiastolic = view.findViewById(R.id.bloodPressureDiastolic);
@@ -111,7 +118,22 @@ public class VideoFragment extends Fragment {
             }
         });
 
+        startExercise.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getActivity(), "Please input and send your vital signs to your therapist before exercising", Toast.LENGTH_LONG).show();
+                heartRateTitle.setVisibility(View.VISIBLE);
+                bloodPressureTitle.setVisibility(View.VISIBLE);
+                heartRateEditText.setVisibility(View.VISIBLE);
+                bloodPressureSystolic.setVisibility(View.VISIBLE);
+                bloodPressureDiastolic.setVisibility(View.VISIBLE);
+                getVitalSigns.setVisibility(View.VISIBLE);
+                sendVitalSigns.setVisibility(View.VISIBLE);
+                startExercise.setVisibility(View.INVISIBLE);
+            }
+        });
 
+        heartRateEditText.setText(String.valueOf(BluetoothLeService.heartRate));
 
         getVitalSigns.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,7 +141,7 @@ public class VideoFragment extends Fragment {
                 startActivity(intent);
             }
         });
-        heartRateEditText.setText(String.valueOf(BluetoothLeService.heartRate));
+
 
         sendVitalSigns.setOnClickListener(new View.OnClickListener() {
             @Override
