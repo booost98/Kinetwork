@@ -43,7 +43,7 @@ public class VideoChatFragment extends Fragment{
         webView.setWebViewClient(new SSLTolerentWebViewClient());
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
-        webView.loadUrl("https://www.youtube.com/watch?v=RrWUs0zVY98");
+        webView.loadUrl("https://192.168.50.173:3000/index.html");
 
 
         return view;

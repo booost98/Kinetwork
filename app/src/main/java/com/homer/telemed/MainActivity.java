@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     TextView headerName;
     TextView headerEmail;
     TextView headerTherapist;
-    String name, email, therapist;
+    String therapist;
     boolean doubleBackToExitPressedOnce = false;
 
     @Override
@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         headerEmail = header.findViewById(R.id.headerEmail);
         headerTherapist = header.findViewById(R.id.headerTherapist);
         int key = getIntent().getIntExtra("key", 0);
-        int keyLogin = getIntent().getIntExtra("keyLogin", 1);
+        int keyLogin = getIntent().getIntExtra("keyLogin", 0);
         therapist = getIntent().getStringExtra("therapist");
 
         headerName.setText(LoginActivity.jsonName);
@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        if(key == (Integer) 3){
+        if(key == 3){
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new VideoFragment()).commit();
         }
 

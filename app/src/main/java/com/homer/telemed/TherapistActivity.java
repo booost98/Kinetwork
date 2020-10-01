@@ -140,6 +140,7 @@ public class TherapistActivity extends AppCompatActivity implements TherapistAda
         selectedNameForInfo = selectedTherapist.getName();
         //Toast.makeText(this, "Viewing Therapist Info...", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(TherapistActivity.this, TherapistInfoActivity.class);
+        //intent.putExtra("therapist", selectedNameForInfo);
         startActivity(intent);
     }
 
