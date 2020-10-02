@@ -42,7 +42,6 @@ import java.util.Map;
 public class VideoFragment extends Fragment {
 
     int jsonExerciseTypeID, jsonExerciseNum;
-    int heartRateToCheck = 0;
     String jsonExerciseType, jsonExerciseDesc, jsonExerciseVidLink;
     Button getVitalSigns, sendVitalSigns, startExercise, checkVitalSigns;
     EditText heartRateEditText, bloodPressureSystolic, bloodPressureDiastolic;
@@ -90,6 +89,78 @@ public class VideoFragment extends Fragment {
 
         getExerciseTypes();
 
+        heartRateEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if(!heartRateEditText.getText().toString().trim().isEmpty()){
+                    String heartRateInput = heartRateEditText.getText().toString().trim();
+                    if(Integer.parseInt(heartRateInput) > 180){
+                        heartRateEditText.setTextColor(Color.parseColor("#ff0000"));
+                    } else if(Integer.parseInt(heartRateInput) < 180){
+                        heartRateEditText.setTextColor(Color.parseColor("#000000"));
+                    }
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        bloodPressureSystolic.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if(!bloodPressureSystolic.getText().toString().trim().isEmpty()){
+                    String bloodPressureSystolicInput = bloodPressureSystolic.getText().toString().trim();
+                    if(Integer.parseInt(bloodPressureSystolicInput) > 120){
+                        bloodPressureSystolic.setTextColor(Color.parseColor("#ff0000"));
+                    } else if(Integer.parseInt(bloodPressureSystolicInput) < 120){
+                        bloodPressureSystolic.setTextColor(Color.parseColor("#000000"));
+                    }
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        bloodPressureDiastolic.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if(!bloodPressureDiastolic.getText().toString().trim().isEmpty()){
+                    String bloodPressureDiastolicInput = bloodPressureDiastolic.getText().toString().trim();
+                    if(Integer.parseInt(bloodPressureDiastolicInput) > 80){
+                        bloodPressureDiastolic.setTextColor(Color.parseColor("#ff0000"));
+                    } else if(Integer.parseInt(bloodPressureDiastolicInput) < 80){
+                        bloodPressureDiastolic.setTextColor(Color.parseColor("#000000"));
+                    }
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
         exerciseTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -130,7 +201,7 @@ public class VideoFragment extends Fragment {
                 bloodPressureDiastolic.setVisibility(View.VISIBLE);
                 getVitalSigns.setVisibility(View.VISIBLE);
                 sendVitalSigns.setVisibility(View.VISIBLE);
-                checkVitalSigns.setVisibility(View.VISIBLE);
+                //checkVitalSigns.setVisibility(View.VISIBLE);
                 startExercise.setVisibility(View.INVISIBLE);
             }
         });
@@ -297,8 +368,8 @@ public class VideoFragment extends Fragment {
                                 }
 
                             } else{
-                                Toast.makeText(getActivity(), "No exercises of this type are present", Toast.LENGTH_SHORT).show();
-                                exerciseDescTextView.setText("Exercise Description");
+                                //Toast.makeText(getActivity(), "No exercises of this type are present", Toast.LENGTH_SHORT).show();
+                                exerciseDescTextView.setText("No exercises of this type are available for you");
                                 exerciseVideoLinkTextView.setText("https://www.youtube.com/yourvideolink");
                                 exercises.clear();
                                 exerciseNumSpinnerAdapter.notifyDataSetChanged();
