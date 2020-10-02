@@ -2,6 +2,8 @@ package com.homer.telemed;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,6 +29,7 @@ import java.util.Map;
 public class RegisterActivity extends AppCompatActivity {
 
     EditText name, emailRegister, passwordRegister, confirmPassword;
+    Button registerBtn;
     private static String URL_REGIST = "http://192.168.50.173:80/kinetwork/register.php";
 
     @Override
@@ -38,7 +41,11 @@ public class RegisterActivity extends AppCompatActivity {
         emailRegister = findViewById(R.id.emailRegister);
         passwordRegister = findViewById(R.id.passwordRegister);
         confirmPassword = findViewById(R.id.confirmPassword);
-        Button registerBtn = findViewById(R.id.registerBtn);
+        name.addTextChangedListener(registerTextWatcher);
+        emailRegister.addTextChangedListener(registerTextWatcher);
+        passwordRegister.addTextChangedListener(registerTextWatcher);
+        confirmPassword.addTextChangedListener(registerTextWatcher);
+        registerBtn = findViewById(R.id.registerBtn);
 
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,6 +58,28 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
     }
+
+    private TextWatcher registerTextWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            String nameInput = name.getText().toString().trim();
+            String emailInput = emailRegister.getText().toString().trim();
+            String passwordInput = passwordRegister.getText().toString().trim();
+            String confirmPasswordInput = confirmPassword.getText().toString().trim();
+
+            registerBtn.setEnabled(!nameInput.isEmpty() && !emailInput.isEmpty() && !passwordInput.isEmpty() && !confirmPasswordInput.isEmpty());
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+
+        }
+    };
 
 
     private void register(){

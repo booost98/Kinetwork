@@ -44,7 +44,7 @@ public class VideoFragment extends Fragment {
     int jsonExerciseTypeID, jsonExerciseNum;
     int heartRateToCheck = 0;
     String jsonExerciseType, jsonExerciseDesc, jsonExerciseVidLink;
-    Button getVitalSigns, sendVitalSigns, startExercise;
+    Button getVitalSigns, sendVitalSigns, startExercise, checkVitalSigns;
     EditText heartRateEditText, bloodPressureSystolic, bloodPressureDiastolic;
     Intent intent;
     Spinner exerciseTypeSpinner, exerciseNumSpinner;
@@ -68,6 +68,7 @@ public class VideoFragment extends Fragment {
         intent = new Intent(getActivity(), DeviceScanActivity.class);
         getVitalSigns = view.findViewById(R.id.getVitalSigns);
         sendVitalSigns = view.findViewById(R.id.sendVitalSigns);
+        checkVitalSigns = view.findViewById(R.id.checkVitalSigns);
         startExercise = view.findViewById(R.id.startExercise);
         heartRateTitle = view.findViewById(R.id.heartRateTitle);
         bloodPressureTitle = view.findViewById(R.id.bloodPressureTitle);
@@ -129,6 +130,7 @@ public class VideoFragment extends Fragment {
                 bloodPressureDiastolic.setVisibility(View.VISIBLE);
                 getVitalSigns.setVisibility(View.VISIBLE);
                 sendVitalSigns.setVisibility(View.VISIBLE);
+                checkVitalSigns.setVisibility(View.VISIBLE);
                 startExercise.setVisibility(View.INVISIBLE);
             }
         });
@@ -147,6 +149,22 @@ public class VideoFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 sendVitalSigns();
+            }
+        });
+
+        checkVitalSigns.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(Integer.parseInt(heartRateEditText.getText().toString()) > 180){
+                    heartRateEditText.setTextColor(Color.parseColor("#FF0000"));
+                }
+                if(Integer.parseInt(bloodPressureSystolic.getText().toString()) > 120){
+                    bloodPressureSystolic.setTextColor(Color.parseColor("#FF0000"));
+                }
+                if(Integer.parseInt(bloodPressureDiastolic.getText().toString()) > 80){
+                    bloodPressureDiastolic.setTextColor(Color.parseColor("#FF0000"));
+                }
+                Toast.makeText(getActivity(), "If your vital signs are too high, please take a rest first and check it again later", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -209,7 +227,7 @@ public class VideoFragment extends Fragment {
                                 for(int i = 0; i < jsonArray.length(); i++){
                                     JSONObject object = jsonArray.getJSONObject(i);
                                     jsonExerciseType = object.getString("exercisetypename").trim();
-                                    jsonExerciseTypeID = object.getInt("exercisetypeid"); //could be wrong, needs to be assigned onchoose @ spinner
+                                    jsonExerciseTypeID = object.getInt("exercisetypeid");
 
                                     exerciseTypes.add(new ExerciseType(jsonExerciseTypeID, jsonExerciseType));
 
