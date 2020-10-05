@@ -26,8 +26,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     TextView headerName;
     TextView headerEmail;
     TextView headerTherapist;
-    String therapist;
-    public static int key;
+    public static String therapist;
+    public static int key, keyLogin;
     boolean doubleBackToExitPressedOnce = false;
 
     @Override
@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         headerEmail = header.findViewById(R.id.headerEmail);
         headerTherapist = header.findViewById(R.id.headerTherapist);
         key = getIntent().getIntExtra("key", 0);
-        int keyLogin = getIntent().getIntExtra("keyLogin", 0);
+        keyLogin = getIntent().getIntExtra("keyLogin", 0);
         therapist = getIntent().getStringExtra("therapist");
 
         headerName.setText(LoginActivity.jsonName);
