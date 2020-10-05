@@ -1,5 +1,7 @@
 package com.homer.telemed;
 
+//CURRENTLY UNUSED CODE. TO BE DELETED
+
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;

@@ -3,6 +3,8 @@ package com.homer.telemed;
 import java.util.HashMap;
 import java.util.UUID;
 
+//LIST OF GATT ATTRIBUTES TO BE LOOKED OUT FOR WHEN A DEVICE IS CONNECTED
+
 public class SampleGattAttributes {
     private static HashMap<String, String> attributes = new HashMap<String, String>();
     // GATT - Service Types

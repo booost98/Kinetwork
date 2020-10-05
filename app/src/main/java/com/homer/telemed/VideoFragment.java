@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,6 +47,7 @@ public class VideoFragment extends Fragment {
     Button getVitalSigns, sendVitalSigns, startExercise, checkVitalSigns;
     EditText heartRateEditText, bloodPressureSystolic, bloodPressureDiastolic;
     Intent intent;
+    ImageView exerciseHelpBtn;
     Spinner exerciseTypeSpinner, exerciseNumSpinner;
     TextView exerciseDescTextView, exerciseVideoLinkTextView, heartRateTitle, bloodPressureTitle;
     private List<ExerciseType> exerciseTypes;
@@ -78,6 +80,7 @@ public class VideoFragment extends Fragment {
         exerciseNumSpinner = view.findViewById(R.id.exerciseNumSpinner);
         exerciseDescTextView = view.findViewById(R.id.exerciseDescTextView);
         exerciseVideoLinkTextView = view.findViewById(R.id.exerciseVideoLinkTextView);
+        exerciseHelpBtn = view.findViewById(R.id.exerciseHelpBtn);
         exerciseTypes = new ArrayList<ExerciseType>();
         exercises = new ArrayList<Exercise>();
         exerciseTypeSpinnerAdapter = new ArrayAdapter<ExerciseType>(getActivity(), R.layout.spinner_item_large, exerciseTypes);
@@ -88,6 +91,17 @@ public class VideoFragment extends Fragment {
         exerciseNumSpinner.setAdapter(exerciseNumSpinnerAdapter);
 
         getExerciseTypes();
+
+        /*if(MainActivity.key == 3){
+            heartRateTitle.setVisibility(View.VISIBLE);
+            bloodPressureTitle.setVisibility(View.VISIBLE);
+            heartRateEditText.setVisibility(View.VISIBLE);
+            bloodPressureSystolic.setVisibility(View.VISIBLE);
+            bloodPressureDiastolic.setVisibility(View.VISIBLE);
+            getVitalSigns.setVisibility(View.VISIBLE);
+            sendVitalSigns.setVisibility(View.VISIBLE);
+            startExercise.setVisibility(View.INVISIBLE);
+        }*/
 
         heartRateEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -190,6 +204,13 @@ public class VideoFragment extends Fragment {
             }
         });
 
+        exerciseHelpBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openExerciseInfoFragment();
+            }
+        });
+
         startExercise.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -255,18 +276,18 @@ public class VideoFragment extends Fragment {
                             String success = jsonObject.getString("success");
 
                             if (success.equals("1")) {
-                                Toast.makeText(getActivity(), "Vital signs sent to database", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), "Vital signs sent to therapist", Toast.LENGTH_SHORT).show();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            Toast.makeText(getActivity(), "Error! " + e.toString(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Error! Please check your connection", Toast.LENGTH_SHORT).show();
                         }
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getActivity(), "Error! " + error.toString(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Error! Please check your connection", Toast.LENGTH_SHORT).show();
                     }
                 })
         {
@@ -306,11 +327,11 @@ public class VideoFragment extends Fragment {
                                 }
 
                             } else{
-                                Toast.makeText(getActivity(), "Your exercises cannot be fetched", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), "No exercises are present", Toast.LENGTH_SHORT).show();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            Toast.makeText(getActivity(), "Error! " + e.toString(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Error! Please check your connection", Toast.LENGTH_SHORT).show();
                         }
 
                     }
@@ -318,7 +339,7 @@ public class VideoFragment extends Fragment {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getActivity(), "Error!" + error.toString(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Error! Please check your connection", Toast.LENGTH_SHORT).show();
                     }
                 })
         {
@@ -376,7 +397,7 @@ public class VideoFragment extends Fragment {
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            Toast.makeText(getActivity(), "Error! " + e.toString(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Error! Please check your connection", Toast.LENGTH_SHORT).show();
                         }
 
                     }
@@ -384,7 +405,7 @@ public class VideoFragment extends Fragment {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getActivity(), "Error!" + error.toString(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Error! Please check your connection", Toast.LENGTH_SHORT).show();
                     }
                 })
         {
@@ -398,6 +419,10 @@ public class VideoFragment extends Fragment {
         };
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
         requestQueue.add(stringRequest);
+    }
+
+    private void openExerciseInfoFragment(){
+        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ExerciseInfoFragment()).addToBackStack(null).commit();
     }
 
 }

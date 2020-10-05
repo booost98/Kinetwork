@@ -1,7 +1,6 @@
 package com.homer.telemed;
 
 import android.content.Context;
-import android.media.Image;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;

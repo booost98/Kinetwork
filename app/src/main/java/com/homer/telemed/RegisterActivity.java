@@ -53,7 +53,7 @@ public class RegisterActivity extends AppCompatActivity {
                 if(passwordRegister.getText().toString().trim().equals(confirmPassword.getText().toString().trim())){
                     register();
                 } else{
-                    Toast.makeText(RegisterActivity.this, "Password is Not Equal to Confirm Password", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, "Password input is not equal to Confirm Password input", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -100,14 +100,14 @@ public class RegisterActivity extends AppCompatActivity {
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            Toast.makeText(RegisterActivity.this, "Error! " + e.toString(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(RegisterActivity.this, "Error! Please check your connection", Toast.LENGTH_SHORT).show();
                         }
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(RegisterActivity.this, "Error! " + error.toString(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegisterActivity.this, "Error! Please check your connection", Toast.LENGTH_SHORT).show();
                     }
                 })
         {

@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
-        android:text="Orthopedics and Sports"
+        android:text="Field"
         android:textColor="@color/Black"
         android:textSize="20sp"
         android:textStyle="bold" />
@@ -24,7 +24,7 @@
         android:layout_below="@+id/therapistField"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp"
-        android:text="(55) 477-345-67-89"
+        android:text="Phone Number"
         android:textColor="@color/Black"
         android:textSize="20sp"
         android:textStyle="bold" />
@@ -37,7 +37,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp"
         android:gravity="center"
-        android:text="León, Guanajuato, México, colonia Las mandarinas, calle san pedro #112"
+        android:text="Address"
         android:textColor="@color/Black"
         android:textSize="15sp"
         android:textStyle="bold" />
@@ -62,7 +62,7 @@
         android:layout_centerInParent="true"
         android:layout_marginTop="25dp"
         android:gravity="center"
-        android:text="Terapia Manual\n Richellis\nDermatofuncional\nEjercicio terapéutico\nPunción seca"
+        android:text="Specialties"
         android:textColor="@color/Black"
         android:textSize="20sp"
         android:textStyle="bold" />
@@ -76,7 +76,7 @@
         android:layout_marginTop="25dp"
         android:autoLink="web"
         android:gravity="center"
-        android:text="LinkedIn: https://www.linkedin.com/in/valeria-cabrera-lira-a92a48182\n\nInstagram: Valeriacabrera3667\n\nFacebook: Valeria Cabrera Lira"
+        android:text="Websites"
         android:textColor="@color/Black"
         android:textSize="20sp"
         android:textStyle="bold" />

@@ -3,12 +3,10 @@ package com.homer.telemed;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -45,7 +43,6 @@ public class LoginActivity extends AppCompatActivity {
 
 
         Button loginBtn = findViewById(R.id.loginBtn);
-        //TextView signUp = findViewById(R.id.signUp);
 
         /*loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,7 +88,6 @@ public class LoginActivity extends AppCompatActivity {
                                     jsonID = object.getInt("id");
                                     jsonHasTherapist = object.getInt("hasTherapist");
                                     jsonTherapistName = object.getString("therapistName");
-                                    //Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
                                 }
 
                                 Intent intent2 = new Intent(LoginActivity.this, MainActivity.class);
@@ -110,7 +106,7 @@ public class LoginActivity extends AppCompatActivity {
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            Toast.makeText(LoginActivity.this, "Error! " + e.toString(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, "Error! Please check your connection", Toast.LENGTH_SHORT).show();
                         }
 
                     }
@@ -118,7 +114,7 @@ public class LoginActivity extends AppCompatActivity {
                 new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(LoginActivity.this, "Error!" + error.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "Error! Please check your connection", Toast.LENGTH_SHORT).show();
             }
         })
         {

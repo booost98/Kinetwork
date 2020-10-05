@@ -4,11 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.renderscript.Sampler;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -91,7 +89,6 @@ public class TherapistActivity extends AppCompatActivity implements TherapistAda
         Therapist selectedItem = therapists.get(position);
         final String selectedName = selectedItem.getName();
         final int hasTherapist = 1;
-        //Toast.makeText(this, "Therapist " + selectedName + " has been selected", Toast.LENGTH_SHORT).show();
 
         StringRequest stringRequest =new StringRequest(Request.Method.POST, URL_THERAPIST,
                 new Response.Listener<String>() {
@@ -102,18 +99,18 @@ public class TherapistActivity extends AppCompatActivity implements TherapistAda
                             String success = jsonObject.getString("success");
 
                             if (success.equals("1")) {
-                                Toast.makeText(TherapistActivity.this, "Therapist sent to db", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(TherapistActivity.this, "Therapist has been selected and sent to server", Toast.LENGTH_SHORT).show();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            Toast.makeText(TherapistActivity.this, "Error! " + e.toString(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(TherapistActivity.this, "Error! Please check your connection", Toast.LENGTH_SHORT).show();
                         }
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(TherapistActivity.this, "Error! " + error.toString(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(TherapistActivity.this, "Error! Please check your connection", Toast.LENGTH_SHORT).show();
                     }
                 })
         {
@@ -138,9 +135,7 @@ public class TherapistActivity extends AppCompatActivity implements TherapistAda
     public void onViewClick(int position) {
         Therapist selectedTherapist = therapists.get(position);
         selectedNameForInfo = selectedTherapist.getName();
-        //Toast.makeText(this, "Viewing Therapist Info...", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(TherapistActivity.this, TherapistInfoActivity.class);
-        //intent.putExtra("therapist", selectedNameForInfo);
         startActivity(intent);
     }
 

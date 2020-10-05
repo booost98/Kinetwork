@@ -169,7 +169,6 @@ public class FileFragment extends Fragment {
                         }
 
                     } else {
-                        // Handle failures
                         Toast.makeText(getActivity(), "Error! ", Toast.LENGTH_SHORT).show();
                     }
                 }

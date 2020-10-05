@@ -147,13 +147,13 @@
         android:visibility="invisible"/>
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/exerciseHelpBtn"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="30dp"
-        android:src="@drawable/ic_tooltip"
-        android:tooltipText="Only use GET VITAL SIGNS FROM SMARTWATCH if you have a compatible SmartWatch. Otherwise, you can manually input your Vital Signs." />
+        android:src="@drawable/ic_tooltip"/>
 
 </RelativeLayout>

@@ -12,12 +12,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +27,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     TextView headerEmail;
     TextView headerTherapist;
     String therapist;
+    public static int key;
     boolean doubleBackToExitPressedOnce = false;
 
     @Override
@@ -47,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         headerName = header.findViewById(R.id.headerName);
         headerEmail = header.findViewById(R.id.headerEmail);
         headerTherapist = header.findViewById(R.id.headerTherapist);
-        int key = getIntent().getIntExtra("key", 0);
+        key = getIntent().getIntExtra("key", 0);
         int keyLogin = getIntent().getIntExtra("keyLogin", 0);
         therapist = getIntent().getStringExtra("therapist");
 
@@ -122,7 +120,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             return;
         }
         this.doubleBackToExitPressedOnce = true;
-        Toast.makeText(this, "Press back button again to logout", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Press back button again to return", Toast.LENGTH_SHORT).show();
 
         new Handler().postDelayed(new Runnable() {
 
@@ -131,6 +129,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 doubleBackToExitPressedOnce=false;
             }
         }, 2000);
+
+        //if(getSupportFragmentManager().getPrimaryNavigationFragment() ==)
     }
 
     public static void hideKeyboard(Activity activity) {

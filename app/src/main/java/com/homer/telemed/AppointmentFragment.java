@@ -56,7 +56,7 @@ public class AppointmentFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         MainActivity.hideKeyboard(getActivity());
-        View view = inflater.inflate(R.layout.fragment_appointment, container, false);
+        View view = inflater.inflate(R.layout.fragment_appointment, container, false); //display appointment layout
         return view;
     }
 
@@ -109,7 +109,7 @@ public class AppointmentFragment extends Fragment {
         public void onDateSet(DatePicker view, int year, int monthOfYear,
                               int dayOfMonth) {
             pickedDate = (monthOfYear + 1) + "-" + dayOfMonth + "-" + year;
-            showTimePicker();
+            showTimePicker(); //show time picker after datepicker
         }
     };
 
@@ -122,7 +122,7 @@ public class AppointmentFragment extends Fragment {
         args.putInt("minute", calendar.get(Calendar.MINUTE));
         time.setArguments(args);
 
-        // Set Call back to capture selected date
+        // Set Call back to capture selected time
 
         ((TimePickerFragment) time).setCallBack(ontime);
         time.show(getFragmentManager(), "date picker");
@@ -140,7 +140,7 @@ public class AppointmentFragment extends Fragment {
         }
     };
 
-    private void sendAppointment(){
+    private void sendAppointment(){ //sends the set appointment to databse
         final String date = pickedDate;
         final String time = pickedTime;
 
@@ -153,18 +153,18 @@ public class AppointmentFragment extends Fragment {
                             String success = jsonObject.getString("success");
 
                             if (success.equals("1")) {
-                                Toast.makeText(getActivity(), "Appointment sent to database", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), "Appointment sent to your therapist", Toast.LENGTH_SHORT).show();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            Toast.makeText(getActivity(), "Error! " + e.toString(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Error! Please check your connection", Toast.LENGTH_SHORT).show();
                         }
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getActivity(), "Error! " + error.toString(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Error! Please check your connection", Toast.LENGTH_SHORT).show();
                     }
                 })
         {
@@ -173,7 +173,7 @@ public class AppointmentFragment extends Fragment {
                 Map<String, String> params = new HashMap<>();
                 params.put("date", date);
                 params.put("time", time);
-                params.put("id", String.valueOf(LoginActivity.jsonID));
+                params.put("id", String.valueOf(LoginActivity.jsonID)); //send parameters to database for proper identification of which user sent the data
                 return params;
             }
         };
@@ -181,7 +181,7 @@ public class AppointmentFragment extends Fragment {
         requestQueue.add(stringRequest);
     }
 
-    public void getAppointment(){
+    public void getAppointment(){ //gets all appointments of current user from database
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_APPOINTMENTGET,
                 new Response.Listener<String>() {
                     @Override
@@ -208,11 +208,11 @@ public class AppointmentFragment extends Fragment {
                                 }
 
                             } else{
-                                Toast.makeText(getActivity(), "Your appointments cannot be fetched", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), "You have no appointments", Toast.LENGTH_SHORT).show();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            Toast.makeText(getActivity(), "Error! " + e.toString(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Error! Please check your connection", Toast.LENGTH_SHORT).show();
                         }
 
                     }
@@ -220,14 +220,14 @@ public class AppointmentFragment extends Fragment {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getActivity(), "Error!" + error.toString(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Error! Please check your connection", Toast.LENGTH_SHORT).show();
                     }
                 })
         {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("id", String.valueOf(LoginActivity.jsonID));
+                params.put("id", String.valueOf(LoginActivity.jsonID)); //put id of current user to get only HIS/HER appointments
                 return params;
             }
         };

@@ -90,8 +90,6 @@ public class TherapistAdapter extends RecyclerView.Adapter<TherapistAdapter.Imag
             if(mListener != null){
                 int position = getAdapterPosition();
                 if(position != RecyclerView.NO_POSITION){
-                    //mListener.onSelectClick(position);
-                    //return true;
                     switch (menuItem.getItemId()) {
                         case 1:
                             mListener.onSelectClick(position);
