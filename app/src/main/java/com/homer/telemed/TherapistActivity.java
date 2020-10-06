@@ -40,8 +40,8 @@ public class TherapistActivity extends AppCompatActivity implements TherapistAda
     private List<Therapist> therapists;
     private RecyclerView recyclerView2;
     private TherapistAdapter therapistAdapter;
-    String name, email;
-    String URL_THERAPIST = "http://192.168.50.173:80/kinetwork/therapist.php";
+    //String URL_THERAPIST = "http://192.168.50.173:80/kinetwork/therapist.php";
+    public static String URL_THERAPIST = "https://agila.upm.edu.ph/~jhdeleon/kinetwork/therapist.php";
 
 
     @Override

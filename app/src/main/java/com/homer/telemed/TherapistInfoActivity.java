@@ -28,7 +28,8 @@ public class TherapistInfoActivity extends AppCompatActivity {
 
     Button returnChooser;
     TextView therapistField, therapistPhone, therapistAddress, therapistSpecialtyList, therapistWebsite;
-    String URL_THERAPISTINFO = "http://192.168.50.173:80/kinetwork/therapistinfo.php";
+    //String URL_THERAPISTINFO = "http://192.168.50.173:80/kinetwork/therapistinfo.php";
+    String URL_THERAPISTINFO = "https://agila.upm.edu.ph/~jhdeleon/kinetwork/therapistinfo.php";
     String jsonTherapistField, jsonTherapistPhone, jsonTherapistAddress, jsonTherapistSpecialtyList, jsonTherapistWebsite;
 
     @Override

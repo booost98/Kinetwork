@@ -56,9 +56,12 @@ public class VideoFragment extends Fragment {
     private ArrayAdapter<Exercise> exerciseNumSpinnerAdapter;
     public int exerciseTypeID;
     public String exerciseDesc, exerciseVidLink;
-    private static String URL_VITALSIGNS = "http://192.168.50.173:80/kinetwork/vitalsigns.php";
-    private static String URL_EXERCISETYPES = "http://192.168.50.173:80/kinetwork/exercisetype.php";
-    private static String URL_EXERCISES = "http://192.168.50.173:80/kinetwork/exercise.php";
+    //private static String URL_EXERCISETYPES = "http://192.168.50.173:80/kinetwork/exercisetype.php";
+    //private static String URL_VITALSIGNS = "http://192.168.50.173:80/kinetwork/vitalsigns.php";
+    //private static String URL_EXERCISES = "http://192.168.50.173:80/kinetwork/exercise.php";
+    private static String URL_EXERCISETYPES = "https://agila.upm.edu.ph/~jhdeleon/kinetwork/exercisetype.php";
+    private static String URL_VITALSIGNS = "https://agila.upm.edu.ph/~jhdeleon/kinetwork/vitalsigns.php";
+    private static String URL_EXERCISES = "https://agila.upm.edu.ph/~jhdeleon/kinetwork/exercise.php";
 
     @Nullable
     @Override
@@ -66,6 +69,7 @@ public class VideoFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_video, container, false);
         MainActivity.hideKeyboard(getActivity());
 
+        ChatFragment.isInChat = false;
         intent = new Intent(getActivity(), DeviceScanActivity.class);
         getVitalSigns = view.findViewById(R.id.getVitalSigns);
         sendVitalSigns = view.findViewById(R.id.sendVitalSigns);
@@ -91,17 +95,6 @@ public class VideoFragment extends Fragment {
         exerciseNumSpinner.setAdapter(exerciseNumSpinnerAdapter);
 
         getExerciseTypes();
-
-        /*if(MainActivity.key == 3){
-            heartRateTitle.setVisibility(View.VISIBLE);
-            bloodPressureTitle.setVisibility(View.VISIBLE);
-            heartRateEditText.setVisibility(View.VISIBLE);
-            bloodPressureSystolic.setVisibility(View.VISIBLE);
-            bloodPressureDiastolic.setVisibility(View.VISIBLE);
-            getVitalSigns.setVisibility(View.VISIBLE);
-            sendVitalSigns.setVisibility(View.VISIBLE);
-            startExercise.setVisibility(View.INVISIBLE);
-        }*/
 
         heartRateEditText.addTextChangedListener(new TextWatcher() {
             @Override

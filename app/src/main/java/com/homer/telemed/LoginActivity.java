@@ -28,7 +28,8 @@ import java.util.Map;
 public class LoginActivity extends AppCompatActivity {
 
     EditText emailLogin, passwordLogin;
-    private static String URL_LOGIN = "http://192.168.50.173:80/kinetwork/login.php";
+    //private static String URL_LOGIN = "http://192.168.50.173:80/kinetwork/login.php";
+    private static String URL_LOGIN = "https://agila.upm.edu.ph/~jhdeleon/kinetwork/login.php";
     public static String jsonName, jsonEmail, jsonTherapistName;
     int jsonHasTherapist;
     public static int jsonID;
@@ -106,7 +107,7 @@ public class LoginActivity extends AppCompatActivity {
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            Toast.makeText(LoginActivity.this, "Error! Please check your connection", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, "Your email and/or password is incorrect", Toast.LENGTH_SHORT).show();
                         }
 
                     }
@@ -114,7 +115,7 @@ public class LoginActivity extends AppCompatActivity {
                 new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(LoginActivity.this, "Error! Please check your connection", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "Error! Pleae check your connection", Toast.LENGTH_SHORT).show();
             }
         })
         {

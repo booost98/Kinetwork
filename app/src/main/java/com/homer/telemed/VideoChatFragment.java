@@ -24,6 +24,7 @@ public class VideoChatFragment extends Fragment{
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_videochat, container, false);
         MainActivity.hideKeyboard(getActivity());
+        ChatFragment.isInChat = false;
 
         webView = view.findViewById(R.id.webView);
         webView.setWebViewClient(new SSLTolerentWebViewClient());

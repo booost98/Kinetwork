@@ -45,8 +45,11 @@ public class AppointmentFragment extends Fragment {
     String pickedDate, pickedTime, jsonDate, jsonTime;
     String concatAppointment;
     int jsonIsApproved;
-    private static String URL_APPOINTMENTSEND = "http://192.168.50.173:80/kinetwork/appointmentsend.php";
-    private static String URL_APPOINTMENTGET = "http://192.168.50.173:80/kinetwork/appointmentget.php";
+    //private static String URL_APPOINTMENTSEND = "http://192.168.50.173:80/kinetwork/appointmentsend.php";
+    //private static String URL_APPOINTMENTGET = "http://192.168.50.173:80/kinetwork/appointmentget.php";
+    private static String URL_APPOINTMENTSEND = "https://agila.upm.edu.ph/~jhdeleon/kinetwork/appointmentsend.php";
+    private static String URL_APPOINTMENTGET = "https://agila.upm.edu.ph/~jhdeleon/kinetwork/appointmentget.php";
+
 
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -56,6 +59,7 @@ public class AppointmentFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         MainActivity.hideKeyboard(getActivity());
+        ChatFragment.isInChat = false;
         View view = inflater.inflate(R.layout.fragment_appointment, container, false); //display appointment layout
         return view;
     }

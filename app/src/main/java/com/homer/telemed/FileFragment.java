@@ -47,7 +47,6 @@ public class FileFragment extends Fragment {
     private UploadTask uploadTask;
 
     private Uri ImageUri;
-    //private Uri downloadUrl;
 
     private StorageReference storageReference;
     private DatabaseReference databaseReference;
@@ -56,6 +55,8 @@ public class FileFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_files, container, false);
+        MainActivity.hideKeyboard(getActivity());
+        ChatFragment.isInChat = false;
 
         chooseFileBtn = view.findViewById(R.id.chooseFileBtn);
         uploadFileBtn = view.findViewById(R.id.uploadFileBtn);
