@@ -39,11 +39,13 @@ public class TherapistAdapter extends RecyclerView.Adapter<TherapistAdapter.Imag
     public void onBindViewHolder(@NonNull ImageViewHolder holder, int position) {
         Therapist therapistCurrent = therapists.get(position);
         holder.textViewName.setText(therapistCurrent.getName());
+        //add volley stringrequest here getting field, location, specialties, and clinic from therapists table
         Picasso.with(context)
                 .load(therapistCurrent.getImageUrl())
                 .placeholder(R.drawable.image_placeholder)
-                .fit()
-                .centerCrop()
+                .resize(300, 300)
+                //.fit()
+                //.centerInside()
                 .into(holder.imageView);
     }
 
@@ -53,13 +55,17 @@ public class TherapistAdapter extends RecyclerView.Adapter<TherapistAdapter.Imag
     }
 
     public class ImageViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnCreateContextMenuListener, MenuItem.OnMenuItemClickListener {
-        public TextView textViewName;
+        public TextView textViewName, tField, tLocation, tSpecialties, tClinic;
         public ImageView imageView;
 
         public ImageViewHolder(@NonNull View itemView) {
             super(itemView);
 
             textViewName = itemView.findViewById(R.id.therapist_name);
+            tField = itemView.findViewById(R.id.tField);
+            tLocation = itemView.findViewById(R.id.tLocation);
+            tSpecialties = itemView.findViewById(R.id.tSpecialties);
+            tClinic = itemView.findViewById(R.id.tClinic);
             imageView = itemView.findViewById(R.id.image_view_therapist);
             itemView.setOnClickListener(this);
             itemView.setOnCreateContextMenuListener(this);
@@ -78,8 +84,8 @@ public class TherapistAdapter extends RecyclerView.Adapter<TherapistAdapter.Imag
         @Override
         public void onCreateContextMenu(ContextMenu contextMenu, View view, ContextMenu.ContextMenuInfo contextMenuInfo) {
             contextMenu.setHeaderTitle("Select Action");
-            MenuItem select_therapist = contextMenu.add(Menu.NONE, 1, 1, "Select Therapist");
-            MenuItem view_info = contextMenu.add(Menu.NONE, 2, 2, "View Therapist Info");
+            MenuItem select_therapist = contextMenu.add(Menu.NONE, 1, 1, "Select This Therapist");
+            MenuItem view_info = contextMenu.add(Menu.NONE, 2, 2, "View More Info");
 
             select_therapist.setOnMenuItemClickListener(this);
             view_info.setOnMenuItemClickListener(this);
