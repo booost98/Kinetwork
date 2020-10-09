@@ -10,8 +10,6 @@
         android:id="@+id/messages_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:layout_marginLeft="0dp"
         android:layout_weight="2"
         android:divider="#fff"
         android:dividerHeight="1dp"

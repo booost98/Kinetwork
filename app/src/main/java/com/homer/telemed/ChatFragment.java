@@ -5,7 +5,6 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -37,8 +36,8 @@ public class ChatFragment extends Fragment {
     EditText myMessage;
     ImageButton sendButton;
     ListView messages_view;
-    List<String> messages;
-    ArrayAdapter<String> arrayAdapter;
+    List<Message> messages;
+    MessageAdapter messageAdapter;
     String jsonMessage;
     int jsonSentByPatient, delay;
     Handler handler;
@@ -58,8 +57,9 @@ public class ChatFragment extends Fragment {
         myMessage = view.findViewById(R.id.myMessage);
         sendButton = view.findViewById(R.id.sendButton);
         messages_view = (ListView) view.findViewById(R.id.messages_view);
-        messages = new ArrayList<String>();
-
+        messages = new ArrayList<Message>();
+        messageAdapter = new MessageAdapter(getActivity(), messages);
+        messages_view.setAdapter(messageAdapter);
 
         handler = new Handler();
         delay = 1000; //milliseconds
@@ -120,8 +120,6 @@ public class ChatFragment extends Fragment {
                     RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
                     requestQueue.add(stringRequest);
 
-                    //messages.add(message);
-                    //arrayAdapter.notifyDataSetChanged();
                     myMessage.getText().clear();
                 }
             }
@@ -145,18 +143,9 @@ public class ChatFragment extends Fragment {
                                     JSONObject object = jsonArray.getJSONObject(i);
                                     jsonMessage = object.getString("message").trim();
                                     jsonSentByPatient = object.getInt("sentByPatient");
-                                    //needs fix lol, need to use custom adapter
-                                    if(jsonSentByPatient == 1) {
-                                        arrayAdapter = new ArrayAdapter<String>(getActivity(), R.layout.my_message, messages);
-                                        messages_view.setAdapter(arrayAdapter);
-                                        messages.add(jsonMessage);
-                                        arrayAdapter.notifyDataSetChanged();
-                                    } else if(jsonSentByPatient == 0){
-                                        arrayAdapter = new ArrayAdapter<String>(getActivity(), R.layout.other_message, messages);
-                                        messages_view.setAdapter(arrayAdapter);
-                                        messages.add(jsonMessage);
-                                        arrayAdapter.notifyDataSetChanged();
-                                    }
+                                    Message message = new Message(jsonMessage, jsonSentByPatient);
+                                    messages.add(message);
+                                    messageAdapter.notifyDataSetChanged();
                                 }
 
                             } else{

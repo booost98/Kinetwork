@@ -1,10 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingVertical="10dp"
+    android:paddingLeft="8dp"
+    android:paddingRight="60dp"
+    android:clipToPadding="false">
+
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/message_body2"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@color/IndianRed"
+    android:layout_alignParentLeft="true"
+    android:background="@drawable/other_message"
     android:elevation="2dp"
     android:padding="8dp"
     android:textColor="@color/White"
     android:textSize="20sp" />
+
+</RelativeLayout>
