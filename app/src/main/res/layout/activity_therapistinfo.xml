@@ -43,10 +43,23 @@
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/therapistSpecialtyTitle"
+        android:id="@+id/therapistClinic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/therapistAddress"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:gravity="center"
+        android:text="Clinic"
+        android:textColor="@color/Black"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/therapistSpecialtyTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/therapistClinic"
         android:layout_marginTop="25dp"
         android:gravity="center"
         android:text="Specialty on:"

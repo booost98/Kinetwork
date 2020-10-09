@@ -27,10 +27,10 @@ import java.util.Map;
 public class TherapistInfoActivity extends AppCompatActivity {
 
     Button returnChooser;
-    TextView therapistField, therapistPhone, therapistAddress, therapistSpecialtyList, therapistWebsite;
+    TextView therapistField, therapistPhone, therapistAddress, therapistSpecialtyList, therapistWebsite, therapistClinic;
     //String URL_THERAPISTINFO = "http://192.168.50.173:80/kinetwork/therapistinfo.php";
     String URL_THERAPISTINFO = "https://agila.upm.edu.ph/~jhdeleon/kinetwork/therapistinfo.php";
-    String jsonTherapistField, jsonTherapistPhone, jsonTherapistAddress, jsonTherapistSpecialtyList, jsonTherapistWebsite;
+    String jsonTherapistField, jsonTherapistPhone, jsonTherapistAddress, jsonTherapistSpecialtyList, jsonTherapistWebsite, jsonTherapistClinic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +43,7 @@ public class TherapistInfoActivity extends AppCompatActivity {
         therapistAddress = findViewById(R.id.therapistAddress);
         therapistSpecialtyList = findViewById(R.id.therapistSpecialtyList);
         therapistWebsite = findViewById(R.id.therapistWebsite);
+        therapistClinic = findViewById(R.id.therapistClinic);
 
         getTherapistInfo();
 
@@ -72,10 +73,12 @@ public class TherapistInfoActivity extends AppCompatActivity {
                                     jsonTherapistAddress = object.getString("address").trim();
                                     jsonTherapistSpecialtyList = object.getString("specialties").trim();
                                     jsonTherapistWebsite = object.getString("websites").trim();
+                                    jsonTherapistClinic = object.getString("clinic").trim();
 
                                     therapistField.setText(jsonTherapistField);
                                     therapistPhone.setText(jsonTherapistPhone);
                                     therapistAddress.setText(jsonTherapistAddress);
+                                    therapistClinic.setText(jsonTherapistClinic);
                                     therapistSpecialtyList.setText(jsonTherapistSpecialtyList);
                                     therapistWebsite.setText(jsonTherapistWebsite);
                                 }

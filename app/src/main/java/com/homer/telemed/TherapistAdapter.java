@@ -9,19 +9,35 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class TherapistAdapter extends RecyclerView.Adapter<TherapistAdapter.ImageViewHolder> {
 
     private Context context;
     private List<Therapist> therapists;
     private OnItemClickListener mListener;
+    //String jsonTField, jsonTLocation, jsonTSpecialties, jsonTClinic;
+    //public static String URL_THERAPISTCHOOSERINFO = "https://agila.upm.edu.ph/~jhdeleon/kinetwork/therapistchooserinfo.php";
 
     public TherapistAdapter(Context context, List<Therapist> therapists){
         this.context = context;
@@ -37,15 +53,17 @@ public class TherapistAdapter extends RecyclerView.Adapter<TherapistAdapter.Imag
 
     @Override
     public void onBindViewHolder(@NonNull ImageViewHolder holder, int position) {
-        Therapist therapistCurrent = therapists.get(position);
+        final Therapist therapistCurrent = therapists.get(position);
         holder.textViewName.setText(therapistCurrent.getName());
-        //add volley stringrequest here getting field, location, specialties, and clinic from therapists table
+        holder.tField.setText("Field: " + therapistCurrent.getField());
+        holder.tLocation.setText("Location: " + therapistCurrent.getLocation());
+        holder.tSpecialties.setText("Specialties: " + therapistCurrent.getSpecialties());
+        holder.tClinic.setText("Clinic: " + therapistCurrent.getClinic());
+
         Picasso.with(context)
                 .load(therapistCurrent.getImageUrl())
                 .placeholder(R.drawable.image_placeholder)
                 .resize(300, 300)
-                //.fit()
-                //.centerInside()
                 .into(holder.imageView);
     }
 

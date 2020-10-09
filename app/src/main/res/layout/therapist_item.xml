@@ -33,8 +33,9 @@
             android:textColor="@color/Black"
             android:textStyle="bold"
             android:gravity="center"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:text="Field"
+            android:layout_marginTop="8dp"
             android:layout_gravity="center"
             />
 
@@ -45,7 +46,8 @@
             android:textColor="@color/Black"
             android:textStyle="bold"
             android:gravity="center"
-            android:textSize="20sp"
+            android:textSize="16sp"
+            android:layout_marginTop="8dp"
             android:text="Location"
             android:layout_gravity="center"
             />
@@ -57,7 +59,8 @@
             android:textColor="@color/Black"
             android:textStyle="bold"
             android:gravity="center"
-            android:textSize="20sp"
+            android:textSize="16sp"
+            android:layout_marginTop="8dp"
             android:text="Specialties"
             android:layout_gravity="center" />
 
@@ -68,7 +71,8 @@
             android:textColor="@color/Black"
             android:textStyle="bold"
             android:gravity="center"
-            android:textSize="20sp"
+            android:textSize="16sp"
+            android:layout_marginTop="8dp"
             android:text="Clinic"
             android:layout_gravity="center"
             />

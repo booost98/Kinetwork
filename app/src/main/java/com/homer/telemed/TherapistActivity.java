@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -23,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -34,6 +36,7 @@ import java.util.Map;
 public class TherapistActivity extends AppCompatActivity implements TherapistAdapter.OnItemClickListener {
 
     public static String selectedNameForInfo;
+    //public static String jsonTField, jsonTLocation, jsonTSpecialties, jsonTClinic;
     private FirebaseStorage storage;
     private DatabaseReference databaseReference;
     private ValueEventListener dBListener;
@@ -42,6 +45,7 @@ public class TherapistActivity extends AppCompatActivity implements TherapistAda
     private TherapistAdapter therapistAdapter;
     //String URL_THERAPIST = "http://192.168.50.173:80/kinetwork/therapist.php";
     public static String URL_THERAPIST = "https://agila.upm.edu.ph/~jhdeleon/kinetwork/therapist.php";
+    public static String URL_THERAPISTCHOOSERINFO = "https://agila.upm.edu.ph/~jhdeleon/kinetwork/therapistchooserinfo.php";
 
 
     @Override
@@ -65,10 +69,55 @@ public class TherapistActivity extends AppCompatActivity implements TherapistAda
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot postSnapshot : dataSnapshot.getChildren()){
-                    Therapist therapist = postSnapshot.getValue(Therapist.class);
-                    therapists.add(therapist);
+                    final Therapist therapist = postSnapshot.getValue(Therapist.class);
+
+                    StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_THERAPISTCHOOSERINFO,
+                            new Response.Listener<String>() {
+                                @Override
+                                public void onResponse(String response) {
+                                    try {
+                                        JSONObject jsonObject = new JSONObject(response);
+                                        String success = jsonObject.getString("success");
+                                        JSONArray jsonArray = jsonObject.getJSONArray("getChooserTherapistInfo");
+
+                                        if(success.equals("1")){
+                                            for(int i = 0; i < jsonArray.length(); i++){
+                                                JSONObject object = jsonArray.getJSONObject(i);
+                                                therapist.setField(object.getString("field"));
+                                                therapist.setLocation(object.getString("address"));
+                                                therapist.setSpecialties(object.getString("specialties"));
+                                                therapist.setClinic(object.getString("clinic"));
+                                                therapists.add(therapist);
+                                                therapistAdapter.notifyDataSetChanged();
+                                            }
+
+                                        } else{
+                                            Toast.makeText(TherapistActivity.this, "Additional Info Cannot be Fetched", Toast.LENGTH_SHORT).show();
+                                        }
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                        Toast.makeText(TherapistActivity.this, "Additional Info Cannot be Fetched" + e.toString(), Toast.LENGTH_SHORT).show();
+                                    }
+
+                                }
+                            },
+                            new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    Toast.makeText(TherapistActivity.this, "Error!" + error.toString(), Toast.LENGTH_SHORT).show();
+                                }
+                            })
+                    {
+                        @Override
+                        protected Map<String, String> getParams() throws AuthFailureError {
+                            Map<String, String> params = new HashMap<>();
+                            params.put("name", therapist.getName());
+                            return params;
+                        }
+                    };
+                    RequestQueue requestQueue = Volley.newRequestQueue(TherapistActivity.this);
+                    requestQueue.add(stringRequest);
                 }
-                therapistAdapter.notifyDataSetChanged();
             }
 
             @Override
