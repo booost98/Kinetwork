@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:padding="8dp">
 
     <TextView
         android:id="@+id/exerciseHelp"
@@ -8,10 +9,11 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerInParent="true"
-        android:text="Cycle through the different exercise types with the uppermost dropdown menu. If your therapist has uploaded an exercise or exercises for you, you can cycle through it with the second dropdown menu\n\nPlease enter your vital signs and send it to your therapist before starting your physical exercise. If at least one of your vital signs are too high, please take a rest and check if your vital signs have improved before exercising\n\nOnly use the GET VITAL SIGNS FROM SMARTWATCH button if you have a compatible Smart Watch. Otherwise, you can manually input your vital signs\n\n"
+        android:text="@string/exerciseinfo"
         android:textColor="@color/Black"
         android:gravity="center"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+        android:textSize="22sp"
+        android:background="@drawable/helpbackground"
+        android:padding="8dp"/>
 
 </RelativeLayout>
