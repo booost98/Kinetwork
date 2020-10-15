@@ -45,14 +45,14 @@ public class LoginActivity extends AppCompatActivity {
 
         Button loginBtn = findViewById(R.id.loginBtn);
 
-        /*loginBtn.setOnClickListener(new View.OnClickListener() {
+        loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), DeviceScanActivity.class));
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
             }
-        });*/
+        });
         //comment out for faster login muna
-        loginBtn.setOnClickListener(new View.OnClickListener() {
+        /*loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 final String email = emailLogin.getText().toString().trim();
@@ -67,7 +67,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
 
             }
-        });
+        });*/
 
     }
 

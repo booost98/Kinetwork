@@ -56,10 +56,10 @@ public class VideoFragment extends Fragment {
     private ArrayAdapter<Exercise> exerciseNumSpinnerAdapter;
     public int exerciseTypeID;
     public String exerciseDesc, exerciseVidLink;
-    //private static String URL_EXERCISETYPES = "http://192.168.50.173:80/kinetwork/exercisetype.php";
+    private static String URL_EXERCISETYPES = "http://192.168.50.173:80/kinetwork/exercisetype.php"; //testing fetching from herokudb
     //private static String URL_VITALSIGNS = "http://192.168.50.173:80/kinetwork/vitalsigns.php";
     //private static String URL_EXERCISES = "http://192.168.50.173:80/kinetwork/exercise.php";
-    private static String URL_EXERCISETYPES = "https://agila.upm.edu.ph/~jhdeleon/kinetwork/exercisetype.php";
+    //private static String URL_EXERCISETYPES = "https://agila.upm.edu.ph/~jhdeleon/kinetwork/exercisetype.php";
     private static String URL_VITALSIGNS = "https://agila.upm.edu.ph/~jhdeleon/kinetwork/vitalsigns.php";
     private static String URL_EXERCISES = "https://agila.upm.edu.ph/~jhdeleon/kinetwork/exercise.php";
 
