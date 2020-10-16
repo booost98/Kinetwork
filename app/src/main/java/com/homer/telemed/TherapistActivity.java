@@ -36,6 +36,7 @@ import java.util.Map;
 public class TherapistActivity extends AppCompatActivity implements TherapistAdapter.OnItemClickListener {
 
     public static String selectedNameForInfo;
+    public static int therapistID;
     //public static String jsonTField, jsonTLocation, jsonTSpecialties, jsonTClinic;
     private FirebaseStorage storage;
     private DatabaseReference databaseReference;
@@ -43,9 +44,12 @@ public class TherapistActivity extends AppCompatActivity implements TherapistAda
     private List<Therapist> therapists;
     private RecyclerView recyclerView2;
     private TherapistAdapter therapistAdapter;
-    //String URL_THERAPIST = "http://192.168.50.173:80/kinetwork/therapist.php";
-    public static String URL_THERAPIST = "https://agila.upm.edu.ph/~jhdeleon/kinetwork/therapist.php";
-    public static String URL_THERAPISTCHOOSERINFO = "https://agila.upm.edu.ph/~jhdeleon/kinetwork/therapistchooserinfo.php";
+    public static String URL_THERAPIST = "http://192.168.50.173:80/kinetwork/therapist.php"; //herokudbtest
+    public static String URL_THERAPISTCHOOSERINFO = "http://192.168.50.173:80/kinetwork/therapistchooserinfo.php"; //herokudbtest
+    public static String URL_THERAPISTIDGET = "http://192.168.50.173:80/kinetwork/therapistidget.php";
+    public static String URL_TREATMENTSEND = "http://192.168.50.173:80/kinetwork/treatmentsend.php";
+    //public static String URL_THERAPIST = "https://agila.upm.edu.ph/~jhdeleon/kinetwork/therapist.php";
+    //public static String URL_THERAPISTCHOOSERINFO = "https://agila.upm.edu.ph/~jhdeleon/kinetwork/therapistchooserinfo.php";
 
 
     @Override
@@ -137,8 +141,80 @@ public class TherapistActivity extends AppCompatActivity implements TherapistAda
     public void onSelectClick(int position) {
         Therapist selectedItem = therapists.get(position);
         final String selectedName = selectedItem.getName();
-        final int hasTherapist = 1;
 
+        selectTherapist(selectedName); //update patient data on user table
+        //getTherapistID(selectedName); //get user_id of therapist on physiotherapist table
+        //sendTreatment(LoginActivity.jsonID, therapistID); //send data to treatment table
+        Log.i("heheonselectclick", String.valueOf(therapistID));
+
+        Intent intent = new Intent(TherapistActivity.this, MainActivity.class);
+        intent.putExtra("therapist", selectedName);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onViewClick(int position) {
+        Therapist selectedTherapist = therapists.get(position);
+        selectedNameForInfo = selectedTherapist.getName();
+        Intent intent = new Intent(TherapistActivity.this, TherapistInfoActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        databaseReference.removeEventListener(dBListener);
+    }
+
+    private void getTherapistID(final String selectedName){
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_THERAPISTIDGET,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            String success = jsonObject.getString("success");
+                            JSONArray jsonArray = jsonObject.getJSONArray("getTherapistID");
+                            Log.i("b4 loop", String.valueOf(therapistID));
+                            if(success.equals("1")){
+                                for(int i = 0; i < jsonArray.length(); i++){
+                                    JSONObject object = jsonArray.getJSONObject(i);
+                                    therapistID = object.getInt("user_id");
+                                    sendTreatment(LoginActivity.jsonID, therapistID);
+                                    Log.i("inside loop", String.valueOf(therapistID)); //acquires it ok
+                                }
+                                Log.i("after loop", String.valueOf(therapistID));
+                            } else{
+                                Toast.makeText(TherapistActivity.this, "TherapistID cannot be fetched", Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(TherapistActivity.this, "TherapistID cannot be fetched" + e.toString(), Toast.LENGTH_SHORT).show();
+                        }
+                        Log.i("after catch", String.valueOf(therapistID));
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(TherapistActivity.this, "Error!" + error.toString(), Toast.LENGTH_SHORT).show();
+                    }
+                })
+        {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("selectedName", selectedName);
+                return params;
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(TherapistActivity.this);
+        requestQueue.add(stringRequest);
+
+        Log.i("after volley request", String.valueOf(therapistID));
+    }
+
+    private void selectTherapist(final String selectedName){
         StringRequest stringRequest =new StringRequest(Request.Method.POST, URL_THERAPIST,
                 new Response.Listener<String>() {
                     @Override
@@ -166,8 +242,7 @@ public class TherapistActivity extends AppCompatActivity implements TherapistAda
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("hasTherapist", String.valueOf(hasTherapist));
-                params.put("therapistName", selectedName);
+                params.put("therapist_name", selectedName);
                 params.put("email", LoginActivity.jsonEmail);
                 return params;
             }
@@ -175,22 +250,47 @@ public class TherapistActivity extends AppCompatActivity implements TherapistAda
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
 
-        Intent intent = new Intent(TherapistActivity.this, MainActivity.class);
-        intent.putExtra("therapist", selectedName);
-        startActivity(intent);
+        getTherapistID(selectedName);
     }
 
-    @Override
-    public void onViewClick(int position) {
-        Therapist selectedTherapist = therapists.get(position);
-        selectedNameForInfo = selectedTherapist.getName();
-        Intent intent = new Intent(TherapistActivity.this, TherapistInfoActivity.class);
-        startActivity(intent);
+    private void sendTreatment(final int patientID, final int therapistID){
+        StringRequest stringRequest =new StringRequest(Request.Method.POST, URL_TREATMENTSEND,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            String success = jsonObject.getString("success");
+
+                            if (success.equals("1")) {
+                                //Toast.makeText(TherapistActivity.this, "Treat has been selected and sent to server", Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(TherapistActivity.this, "Error! Please check your connection" + e.toString(), Toast.LENGTH_SHORT).show();
+
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(TherapistActivity.this, "Error! Please check your connection", Toast.LENGTH_SHORT).show();
+                    }
+                })
+        {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("patient_id", String.valueOf(patientID));
+                params.put("physiotherapist_id", String.valueOf(therapistID));
+                return params;
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+
+        Log.i("hehepatientid", String.valueOf(patientID));
+        requestQueue.add(stringRequest);
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        databaseReference.removeEventListener(dBListener);
-    }
 }

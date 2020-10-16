@@ -28,8 +28,8 @@ public class TherapistInfoActivity extends AppCompatActivity {
 
     Button returnChooser;
     TextView therapistField, therapistPhone, therapistAddress, therapistSpecialtyList, therapistWebsite, therapistClinic;
-    //String URL_THERAPISTINFO = "http://192.168.50.173:80/kinetwork/therapistinfo.php";
-    String URL_THERAPISTINFO = "https://agila.upm.edu.ph/~jhdeleon/kinetwork/therapistinfo.php";
+    String URL_THERAPISTINFO = "http://192.168.50.173:80/kinetwork/therapistinfo.php";
+    //String URL_THERAPISTINFO = "https://agila.upm.edu.ph/~jhdeleon/kinetwork/therapistinfo.php";
     String jsonTherapistField, jsonTherapistPhone, jsonTherapistAddress, jsonTherapistSpecialtyList, jsonTherapistWebsite, jsonTherapistClinic;
 
     @Override
@@ -69,7 +69,7 @@ public class TherapistInfoActivity extends AppCompatActivity {
                                 for(int i = 0; i < jsonArray.length(); i++){
                                     JSONObject object = jsonArray.getJSONObject(i);
                                     jsonTherapistField = object.getString("field").trim();
-                                    jsonTherapistPhone = object.getString("phonenumber").trim();
+                                    jsonTherapistPhone = object.getString("phone_number").trim();
                                     jsonTherapistAddress = object.getString("address").trim();
                                     jsonTherapistSpecialtyList = object.getString("specialties").trim();
                                     jsonTherapistWebsite = object.getString("websites").trim();

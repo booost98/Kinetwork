@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,8 +29,8 @@ import java.util.Map;
 public class LoginActivity extends AppCompatActivity {
 
     EditText emailLogin, passwordLogin;
-    //private static String URL_LOGIN = "http://192.168.50.173:80/kinetwork/login.php";
-    private static String URL_LOGIN = "https://agila.upm.edu.ph/~jhdeleon/kinetwork/login.php";
+    private static String URL_LOGIN = "http://192.168.50.173:80/kinetwork/login.php"; //herokudbtest
+    //private static String URL_LOGIN = "https://agila.upm.edu.ph/~jhdeleon/kinetwork/login.php";
     public static String jsonName, jsonEmail, jsonTherapistName;
     int jsonHasTherapist;
     public static int jsonID;
@@ -45,14 +46,14 @@ public class LoginActivity extends AppCompatActivity {
 
         Button loginBtn = findViewById(R.id.loginBtn);
 
-        loginBtn.setOnClickListener(new View.OnClickListener() {
+        /*loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
             }
-        });
+        });*/
         //comment out for faster login muna
-        /*loginBtn.setOnClickListener(new View.OnClickListener() {
+        loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 final String email = emailLogin.getText().toString().trim();
@@ -67,7 +68,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
 
             }
-        });*/
+        });
 
     }
 
@@ -86,9 +87,9 @@ public class LoginActivity extends AppCompatActivity {
                                     JSONObject object = jsonArray.getJSONObject(i);
                                     jsonName = object.getString("name").trim();
                                     jsonEmail = object.getString("email").trim();
-                                    jsonID = object.getInt("id");
-                                    jsonHasTherapist = object.getInt("hasTherapist");
-                                    jsonTherapistName = object.getString("therapistName");
+                                    jsonID = object.getInt("user_id");
+                                    jsonHasTherapist = object.getInt("has_therapist");
+                                    jsonTherapistName = object.getString("therapist_name");
                                 }
 
                                 Intent intent2 = new Intent(LoginActivity.this, MainActivity.class);
@@ -107,7 +108,7 @@ public class LoginActivity extends AppCompatActivity {
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            Toast.makeText(LoginActivity.this, "Your email and/or password is incorrect", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, "Your email and/or password is incorrect" + e.toString(), Toast.LENGTH_SHORT).show();
                         }
 
                     }
@@ -136,5 +137,4 @@ public class LoginActivity extends AppCompatActivity {
         Intent intent = new Intent(view.getContext(), RegisterActivity.class);
         view.getContext().startActivity(intent);
     }
-
 }

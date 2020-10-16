@@ -30,8 +30,8 @@ public class RegisterActivity extends AppCompatActivity {
 
     EditText name, emailRegister, passwordRegister, confirmPassword;
     Button registerBtn;
-    //private static String URL_REGIST = "http://192.168.50.173:80/kinetwork/register.php";
-    private static String URL_REGIST = "https://agila.upm.edu.ph/~jhdeleon/kinetwork/register.php";
+    private static String URL_REGIST = "http://192.168.50.173:80/kinetwork/register.php"; //herokudb testing
+    //private static String URL_REGIST = "https://agila.upm.edu.ph/~jhdeleon/kinetwork/register.php";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
