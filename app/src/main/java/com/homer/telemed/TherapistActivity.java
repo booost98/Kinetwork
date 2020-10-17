@@ -191,7 +191,6 @@ public class TherapistActivity extends AppCompatActivity implements TherapistAda
                             e.printStackTrace();
                             Toast.makeText(TherapistActivity.this, "TherapistID cannot be fetched" + e.toString(), Toast.LENGTH_SHORT).show();
                         }
-                        Log.i("after catch", String.valueOf(therapistID));
                     }
                 },
                 new Response.ErrorListener() {
@@ -210,8 +209,6 @@ public class TherapistActivity extends AppCompatActivity implements TherapistAda
         };
         RequestQueue requestQueue = Volley.newRequestQueue(TherapistActivity.this);
         requestQueue.add(stringRequest);
-
-        Log.i("after volley request", String.valueOf(therapistID));
     }
 
     private void selectTherapist(final String selectedName){
@@ -288,8 +285,6 @@ public class TherapistActivity extends AppCompatActivity implements TherapistAda
             }
         };
         RequestQueue requestQueue = Volley.newRequestQueue(this);
-
-        Log.i("hehepatientid", String.valueOf(patientID));
         requestQueue.add(stringRequest);
     }
 

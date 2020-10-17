@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.icu.util.Calendar;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,15 +41,16 @@ import java.util.Map;
 
 public class AppointmentFragment extends Fragment {
 
+    //int jsonTreatmentID;
     private List<String> appointmentDates;
     private ArrayAdapter<String> arrayAdapter;
-    String pickedDate, pickedTime, jsonDate, jsonTime;
+    String pickedDate, pickedTime, jsonSchedule;
     String concatAppointment;
     int jsonIsApproved;
-    //private static String URL_APPOINTMENTSEND = "http://192.168.50.173:80/kinetwork/appointmentsend.php";
-    //private static String URL_APPOINTMENTGET = "http://192.168.50.173:80/kinetwork/appointmentget.php";
-    private static String URL_APPOINTMENTSEND = "https://agila.upm.edu.ph/~jhdeleon/kinetwork/appointmentsend.php";
-    private static String URL_APPOINTMENTGET = "https://agila.upm.edu.ph/~jhdeleon/kinetwork/appointmentget.php";
+    private static String URL_APPOINTMENTSEND = "http://192.168.50.173:80/kinetwork/appointmentsend.php";
+    private static String URL_APPOINTMENTGET = "http://192.168.50.173:80/kinetwork/appointmentget.php";
+    //private static String URL_APPOINTMENTSEND = "https://agila.upm.edu.ph/~jhdeleon/kinetwork/appointmentsend.php";
+    //private static String URL_APPOINTMENTGET = "https://agila.upm.edu.ph/~jhdeleon/kinetwork/appointmentget.php";
 
 
     public void onCreate(Bundle savedInstanceState){
@@ -60,6 +62,9 @@ public class AppointmentFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         MainActivity.hideKeyboard(getActivity());
         ChatFragment.isInChat = false;
+
+
+
         View view = inflater.inflate(R.layout.fragment_appointment, container, false); //display appointment layout
         return view;
     }
@@ -112,7 +117,7 @@ public class AppointmentFragment extends Fragment {
 
         public void onDateSet(DatePicker view, int year, int monthOfYear,
                               int dayOfMonth) {
-            pickedDate = (monthOfYear + 1) + "-" + dayOfMonth + "-" + year;
+            pickedDate = year + "-" + (monthOfYear+1) + "-" + dayOfMonth; //(monthOfYear + 1) + "-" + dayOfMonth + "-" + year;
             showTimePicker(); //show time picker after datepicker
         }
     };
@@ -147,6 +152,7 @@ public class AppointmentFragment extends Fragment {
     private void sendAppointment(){ //sends the set appointment to databse
         final String date = pickedDate;
         final String time = pickedTime;
+        final String schedule = pickedDate + " " + pickedTime;
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_APPOINTMENTSEND,
                 new Response.Listener<String>() {
@@ -161,7 +167,7 @@ public class AppointmentFragment extends Fragment {
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            Toast.makeText(getActivity(), "Error! Please check your connection", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Error! Please check your connection" + e.toString(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 },
@@ -175,9 +181,11 @@ public class AppointmentFragment extends Fragment {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("date", date);
-                params.put("time", time);
-                params.put("id", String.valueOf(LoginActivity.jsonID)); //send parameters to database for proper identification of which user sent the data
+                params.put("schedule", schedule);
+                Log.i("treatmentid test @ sendappointment()", String.valueOf(LoginActivity.jsonTreatmentID));
+                params.put("treatment_id", String.valueOf(LoginActivity.jsonTreatmentID));
+                params.put("label", "Appointment for patient_id " + LoginActivity.jsonID);
+                params.put("note", "Appointment for patient_id " + LoginActivity.jsonID);
                 return params;
             }
         };
@@ -185,7 +193,7 @@ public class AppointmentFragment extends Fragment {
         requestQueue.add(stringRequest);
     }
 
-    public void getAppointment(){ //gets all appointments of current user from database
+    private void getAppointment(){ //gets all appointments of current user from database
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_APPOINTMENTGET,
                 new Response.Listener<String>() {
                     @Override
@@ -198,14 +206,18 @@ public class AppointmentFragment extends Fragment {
                             if(success.equals("1")){
                                 for(int i = 0; i < jsonArray.length(); i++){
                                     JSONObject object = jsonArray.getJSONObject(i);
-                                    jsonDate = object.getString("date").trim();
-                                    jsonTime = object.getString("time").trim();
-                                    jsonIsApproved = object.getInt("isApproved");
+                                    jsonSchedule = object.getString("schedule").trim();
+                                    jsonIsApproved = object.getInt("is_approved");
+                                    //Log.i("jsonSchedule and jsonisApproved check @ getappointment", jsonSchedule + String.valueOf(jsonIsApproved));
 
                                     if(jsonIsApproved == 0){
-                                        concatAppointment = "Date: " + jsonDate + " Time: " + jsonTime + " Status: Pending";
+                                        concatAppointment = "Schedule: " + jsonSchedule + " Status: Pending";
+                                    } else if(jsonIsApproved == 1){
+                                        concatAppointment = "Schedule: " + jsonSchedule + " Status: Approved";
+                                    } else if(jsonIsApproved == 2){
+                                        concatAppointment = "Schedule: " + jsonSchedule + " Status: Rejected";
                                     } else{
-                                        concatAppointment = "Date: " + jsonDate + " Time: " + jsonTime + " Status: Confirmed";
+                                        concatAppointment = "Schedule: " + jsonSchedule + " Status: Unknown";
                                     }
                                     appointmentDates.add(concatAppointment);
                                     arrayAdapter.notifyDataSetChanged();
@@ -231,7 +243,8 @@ public class AppointmentFragment extends Fragment {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("id", String.valueOf(LoginActivity.jsonID)); //put id of current user to get only HIS/HER appointments
+                Log.i("treatmentid from login check @ getappointments()", String.valueOf(LoginActivity.jsonTreatmentID));
+                params.put("treatment_id", String.valueOf(LoginActivity.jsonTreatmentID)); //put treatment_id of current user to get only HIS/HER appointments
                 return params;
             }
         };

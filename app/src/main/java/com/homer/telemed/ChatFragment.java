@@ -42,10 +42,10 @@ public class ChatFragment extends Fragment {
     int jsonSentByPatient, delay;
     Handler handler;
     public static boolean isInChat;
-    //private static String URL_MESSAGESEND = "http://192.168.50.173:80/kinetwork/messagesend.php";
-    //private static String URL_MESSAGEGET = "http://192.168.50.173:80/kinetwork/messageget.php";
-    private static String URL_MESSAGESEND = "https://agila.upm.edu.ph/~jhdeleon/kinetwork/messagesend.php";
-    private static String URL_MESSAGEGET = "https://agila.upm.edu.ph/~jhdeleon/kinetwork//messageget.php";
+    private static String URL_MESSAGESEND = "http://192.168.50.173:80/kinetwork/messagesend.php";
+    private static String URL_MESSAGEGET = "http://192.168.50.173:80/kinetwork/messageget.php";
+    //private static String URL_MESSAGESEND = "https://agila.upm.edu.ph/~jhdeleon/kinetwork/messagesend.php";
+    //private static String URL_MESSAGEGET = "https://agila.upm.edu.ph/~jhdeleon/kinetwork//messageget.php";
 
     @Nullable
     @Override
@@ -107,13 +107,9 @@ public class ChatFragment extends Fragment {
                         protected Map<String, String> getParams() throws AuthFailureError {
                             Map<String, String> params = new HashMap<>();
                             params.put("message", message);
-                            params.put("id", String.valueOf(LoginActivity.jsonID)); //send parameters to database for proper identification of which user sent the data
-                            params.put("sentByPatient", String.valueOf(sentByPatient));
-                            if(MainActivity.keyLogin == 1){
-                                params.put("therapistName", LoginActivity.jsonTherapistName);
-                            } else{
-                                params.put("therapistName", MainActivity.therapist);
-                            }
+                            params.put("treatment_id", String.valueOf(LoginActivity.jsonTreatmentID)); //send parameters to database for proper identification of which user sent the data
+                            params.put("sent_by_patient", String.valueOf(sentByPatient));
+
                             return params;
                         }
                     };
@@ -142,7 +138,7 @@ public class ChatFragment extends Fragment {
                                 for(int i = 0; i < jsonArray.length(); i++){
                                     JSONObject object = jsonArray.getJSONObject(i);
                                     jsonMessage = object.getString("message").trim();
-                                    jsonSentByPatient = object.getInt("sentByPatient");
+                                    jsonSentByPatient = object.getInt("sent_by_patient");
                                     Message message = new Message(jsonMessage, jsonSentByPatient);
                                     messages.add(message);
                                     messageAdapter.notifyDataSetChanged();
@@ -168,12 +164,8 @@ public class ChatFragment extends Fragment {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("id", String.valueOf(LoginActivity.jsonID)); //put id of current user to get only HIS/HER appointments
-                if(MainActivity.keyLogin == 1){
-                    params.put("therapistName", LoginActivity.jsonTherapistName);
-                } else{
-                    params.put("therapistName", MainActivity.therapist);
-                }
+                params.put("treatment_id", String.valueOf(LoginActivity.jsonTreatmentID)); //put treatment_id of current user to get only HIS/HER appointments
+
                 return params;
             }
         };

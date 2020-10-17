@@ -29,7 +29,9 @@ import java.util.Map;
 public class LoginActivity extends AppCompatActivity {
 
     EditText emailLogin, passwordLogin;
+    public static int jsonTreatmentID;
     private static String URL_LOGIN = "http://192.168.50.173:80/kinetwork/login.php"; //herokudbtest
+    private static String URL_TREATMENTIDGET = "http://192.168.50.173:80/kinetwork/treatmentidget.php";
     //private static String URL_LOGIN = "https://agila.upm.edu.ph/~jhdeleon/kinetwork/login.php";
     public static String jsonName, jsonEmail, jsonTherapistName;
     int jsonHasTherapist;
@@ -90,6 +92,7 @@ public class LoginActivity extends AppCompatActivity {
                                     jsonID = object.getInt("user_id");
                                     jsonHasTherapist = object.getInt("has_therapist");
                                     jsonTherapistName = object.getString("therapist_name");
+                                    getTreatmentID(jsonID);
                                 }
 
                                 Intent intent2 = new Intent(LoginActivity.this, MainActivity.class);
@@ -136,5 +139,48 @@ public class LoginActivity extends AppCompatActivity {
     public void goSignUp(View view){
         Intent intent = new Intent(view.getContext(), RegisterActivity.class);
         view.getContext().startActivity(intent);
+    }
+
+    private void getTreatmentID(final int patient_id){
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_TREATMENTIDGET,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            String success = jsonObject.getString("success");
+                            JSONArray jsonArray = jsonObject.getJSONArray("getTreatmentID");
+
+                            if(success.equals("1")){
+                                for(int i = 0; i < jsonArray.length(); i++){
+                                    JSONObject object = jsonArray.getJSONObject(i);
+                                    jsonTreatmentID = object.getInt("treatment_id");
+                                }
+
+                            } else{
+                                //Toast.makeText(LoginActivity.this, "You have no existing treatment", Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            //Toast.makeText(getActivity(), "Error! Please check your connection", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        //Toast.makeText(getActivity(), "Error! Please check your connection", Toast.LENGTH_SHORT).show();
+                    }
+                })
+        {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("patient_id", String.valueOf(patient_id)); //put id of current user to get only his/her active treatment_id
+                return params;
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(LoginActivity.this);
+        requestQueue.add(stringRequest);
     }
 }
