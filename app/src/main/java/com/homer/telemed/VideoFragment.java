@@ -57,11 +57,11 @@ public class VideoFragment extends Fragment {
     public int exerciseTypeID;
     public String exerciseDesc, exerciseVidLink;
     private static String URL_EXERCISETYPES = "http://192.168.50.173:80/kinetwork/exercisetype.php"; //testing fetching from herokudb
-    //private static String URL_VITALSIGNS = "http://192.168.50.173:80/kinetwork/vitalsigns.php";
-    //private static String URL_EXERCISES = "http://192.168.50.173:80/kinetwork/exercise.php";
+    private static String URL_VITALSIGNS = "http://192.168.50.173:80/kinetwork/vitalsigns.php";
+    private static String URL_EXERCISES = "http://192.168.50.173:80/kinetwork/exercise.php";
     //private static String URL_EXERCISETYPES = "https://agila.upm.edu.ph/~jhdeleon/kinetwork/exercisetype.php";
-    private static String URL_VITALSIGNS = "https://agila.upm.edu.ph/~jhdeleon/kinetwork/vitalsigns.php";
-    private static String URL_EXERCISES = "https://agila.upm.edu.ph/~jhdeleon/kinetwork/exercise.php";
+    //private static String URL_VITALSIGNS = "https://agila.upm.edu.ph/~jhdeleon/kinetwork/vitalsigns.php";
+    //private static String URL_EXERCISES = "https://agila.upm.edu.ph/~jhdeleon/kinetwork/exercise.php";
 
     @Nullable
     @Override
@@ -269,7 +269,7 @@ public class VideoFragment extends Fragment {
                             String success = jsonObject.getString("success");
 
                             if (success.equals("1")) {
-                                Toast.makeText(getActivity(), "Vital signs sent to therapist", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), "Vital signs sent to your therapist", Toast.LENGTH_SHORT).show();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -287,9 +287,9 @@ public class VideoFragment extends Fragment {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("bloodpressure", bloodPressure);
-                params.put("heartrate", heartRate);
-                params.put("id", String.valueOf(LoginActivity.jsonID));
+                params.put("blood_pressure", bloodPressure);
+                params.put("heart_rate", heartRate);
+                params.put("treatment_id", String.valueOf(LoginActivity.jsonTreatmentID));
                 return params;
             }
         };
@@ -372,9 +372,9 @@ public class VideoFragment extends Fragment {
                             if(success.equals("1")){
                                 for(int i = 0; i < jsonArray.length(); i++){
                                     JSONObject object = jsonArray.getJSONObject(i);
-                                    jsonExerciseDesc = object.getString("exercisedesc").trim();
-                                    jsonExerciseVidLink = object.getString("exercisevidlink").trim();
-                                    jsonExerciseNum = object.getInt("exercisenum");
+                                    jsonExerciseDesc = object.getString("exercise_desc").trim();
+                                    jsonExerciseVidLink = object.getString("exercise_vidlink").trim();
+                                    jsonExerciseNum = object.getInt("exercise_num");
 
                                     exercises.add(new Exercise(jsonExerciseDesc, jsonExerciseVidLink, jsonExerciseNum));
                                     exerciseNumSpinnerAdapter.notifyDataSetChanged();
@@ -405,7 +405,7 @@ public class VideoFragment extends Fragment {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("id", String.valueOf(LoginActivity.jsonID));
+                params.put("treatment_id", String.valueOf(LoginActivity.jsonTreatmentID));
                 params.put("exercisetypeid", String.valueOf(exerciseTypeID));
                 return params;
             }
