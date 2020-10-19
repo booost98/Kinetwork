@@ -4,9 +4,11 @@
     android:layout_height="match_parent">
 
     <TextView
+        android:id="@+id/filesFragHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/LapisBlue"
+        android:layout_alignParentTop="true"
         android:gravity="center"
         android:text="Upload Files Here"
         android:textColor="@color/White"
@@ -20,6 +22,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="10dp"
+        android:layout_below="@+id/filesFragHeader"
         android:layout_marginTop="50dp"
         android:text="CHOOSE FILE"
         android:textSize="16sp"
@@ -31,6 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:layout_toEndOf="@id/chooseFileBtn"
+        android:layout_alignBottom="@id/chooseFileBtn"
         android:hint="Enter file nickname" />
 
     <ImageView

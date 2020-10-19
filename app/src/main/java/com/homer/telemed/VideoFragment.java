@@ -269,7 +269,11 @@ public class VideoFragment extends Fragment {
                             String success = jsonObject.getString("success");
 
                             if (success.equals("1")) {
-                                Toast.makeText(getActivity(), "Vital signs sent to your therapist", Toast.LENGTH_SHORT).show();
+                                if(Integer.parseInt(heartRate) > 180 || Integer.parseInt(bloodPressureSystolic.getText().toString().trim()) > 120 || Integer.parseInt(bloodPressureDiastolic.getText().toString().trim()) > 80){
+                                    Toast.makeText(getActivity(), "Sent. Your heart rate and/or your blood pressure is too high. Please take a short rest, send your vital signs again, and start your exercise if your heart rate and/or your blood pressure improves", Toast.LENGTH_LONG).show();
+                                } else{
+                                    Toast.makeText(getActivity(), "Sent. You may start your exercise now.", Toast.LENGTH_LONG).show();
+                                }
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
