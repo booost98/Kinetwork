@@ -143,13 +143,13 @@ public class TherapistActivity extends AppCompatActivity implements TherapistAda
         final String selectedName = selectedItem.getName();
 
         selectTherapist(selectedName); //update patient data on user table
-        //getTherapistID(selectedName); //get user_id of therapist on physiotherapist table
-        //sendTreatment(LoginActivity.jsonID, therapistID); //send data to treatment table
-        Log.i("heheonselectclick", String.valueOf(therapistID));
+        //Toast.makeText(this, "Need to login again after choosing your therapist", Toast.LENGTH_SHORT).show();
 
-        Intent intent = new Intent(TherapistActivity.this, MainActivity.class);
-        intent.putExtra("therapist", selectedName);
-        startActivity(intent);
+        //Intent intent = new Intent(TherapistActivity.this, MainActivity.class);
+        //intent.putExtra("therapist", selectedName);
+        //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        //startActivity(intent);
+        //finish();
     }
 
     @Override
@@ -260,6 +260,11 @@ public class TherapistActivity extends AppCompatActivity implements TherapistAda
                             String success = jsonObject.getString("success");
 
                             if (success.equals("1")) {
+                                Toast.makeText(TherapistActivity.this, "Need to login again after choosing your therapist", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(TherapistActivity.this, LoginActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(intent);
+                                finish();
                                 //Toast.makeText(TherapistActivity.this, "Treat has been selected and sent to server", Toast.LENGTH_SHORT).show();
                             }
                         } catch (JSONException e) {

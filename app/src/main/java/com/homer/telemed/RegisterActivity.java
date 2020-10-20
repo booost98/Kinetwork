@@ -53,6 +53,10 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if(passwordRegister.getText().toString().trim().equals(confirmPassword.getText().toString().trim())){
                     register();
+                    name.getText().clear();
+                    emailRegister.getText().clear();
+                    passwordRegister.getText().clear();
+                    confirmPassword.getText().clear();
                 } else{
                     Toast.makeText(RegisterActivity.this, "Password input is not equal to Confirm Password input", Toast.LENGTH_SHORT).show();
                 }

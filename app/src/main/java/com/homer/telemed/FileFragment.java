@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.FileUtils;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -166,6 +167,7 @@ public class FileFragment extends Fragment {
                             String photoStringLink = downloadUri.toString(); //download URL
                             Upload upload = new Upload(imageNickname.getText().toString().trim(), photoStringLink, LoginActivity.jsonID);
                             String uploadId = databaseReference.push().getKey();
+                            Log.i("uploadid @ onComplete", uploadId);
                             databaseReference.child(uploadId).setValue(upload);
                         }
 
