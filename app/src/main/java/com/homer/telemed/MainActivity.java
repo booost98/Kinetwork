@@ -82,7 +82,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
 
             case R.id.nav_videochat:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new VideoChatFragment()).commit();
+                //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new VideoChatFragment()).commit();
+                Intent i = new Intent(getApplicationContext(), RtcActivity.class);
+                startActivity(i);
                 break;
 
             case R.id.nav_exercise:

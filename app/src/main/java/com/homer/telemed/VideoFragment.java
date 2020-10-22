@@ -44,7 +44,7 @@ public class VideoFragment extends Fragment {
 
     int jsonExerciseTypeID, jsonExerciseNum;
     String jsonExerciseType, jsonExerciseDesc, jsonExerciseVidLink;
-    Button getVitalSigns, sendVitalSigns, startExercise, checkVitalSigns;
+    Button getVitalSigns, sendVitalSigns, startExercise;
     EditText heartRateEditText, bloodPressureSystolic, bloodPressureDiastolic;
     Intent intent;
     ImageView exerciseHelpBtn;
@@ -73,7 +73,6 @@ public class VideoFragment extends Fragment {
         intent = new Intent(getActivity(), DeviceScanActivity.class);
         getVitalSigns = view.findViewById(R.id.getVitalSigns);
         sendVitalSigns = view.findViewById(R.id.sendVitalSigns);
-        checkVitalSigns = view.findViewById(R.id.checkVitalSigns);
         startExercise = view.findViewById(R.id.startExercise);
         heartRateTitle = view.findViewById(R.id.heartRateTitle);
         bloodPressureTitle = view.findViewById(R.id.bloodPressureTitle);
@@ -222,6 +221,7 @@ public class VideoFragment extends Fragment {
 
         heartRateEditText.setText(String.valueOf(BluetoothLeService.heartRate));
 
+
         getVitalSigns.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -234,22 +234,6 @@ public class VideoFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 sendVitalSigns();
-            }
-        });
-
-        checkVitalSigns.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(Integer.parseInt(heartRateEditText.getText().toString()) > 180){
-                    heartRateEditText.setTextColor(Color.parseColor("#FF0000"));
-                }
-                if(Integer.parseInt(bloodPressureSystolic.getText().toString()) > 120){
-                    bloodPressureSystolic.setTextColor(Color.parseColor("#FF0000"));
-                }
-                if(Integer.parseInt(bloodPressureDiastolic.getText().toString()) > 80){
-                    bloodPressureDiastolic.setTextColor(Color.parseColor("#FF0000"));
-                }
-                Toast.makeText(getActivity(), "If your vital signs are too high, please take a rest first and check it again later", Toast.LENGTH_SHORT).show();
             }
         });
 

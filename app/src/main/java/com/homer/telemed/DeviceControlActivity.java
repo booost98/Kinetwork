@@ -50,6 +50,7 @@ public class DeviceControlActivity extends Activity {
             new ArrayList<ArrayList<BluetoothGattCharacteristic>>();
     private boolean mConnected = false;
     private BluetoothGattCharacteristic mNotifyCharacteristic;
+    Button returnToExercise;
 
     private final String LIST_NAME = "NAME";
     private final String LIST_UUID = "UUID";
@@ -145,6 +146,17 @@ public class DeviceControlActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.gatt_services_characteristics);
+
+        final Intent i = new Intent(this, MainActivity.class);
+        i.putExtra("key", 3);
+
+        returnToExercise = findViewById(R.id.returnToExercise);
+        returnToExercise.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(i);
+            }
+        });
 
         final Intent intent = getIntent();
         mDeviceName = intent.getStringExtra(EXTRAS_DEVICE_NAME);

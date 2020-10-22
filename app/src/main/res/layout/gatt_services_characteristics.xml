@@ -63,4 +63,9 @@
     <ExpandableListView android:id="@+id/gatt_services_list"
         android:layout_width="match_parent"
         android:layout_height="300dp"/>
+    <RelativeLayout android:layout_height="wrap_content" android:layout_width="match_parent">
+
+    <Button android:layout_height="wrap_content" android:layout_width="wrap_content" android:text="Return to Exercise Tab" android:id="@+id/returnToExercise" android:padding="8dp" android:textColor="@color/White" android:background="@color/LapisBlue" android:layout_marginBottom="16dp" android:layout_alignParentBottom="true" android:layout_centerHorizontal="true"/>
+
+</RelativeLayout>
 </LinearLayout>

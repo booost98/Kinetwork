@@ -1,12 +1,12 @@
 package com.homer.telemed;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Point;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager.LayoutParams;
 import android.widget.ImageView;
@@ -15,16 +15,10 @@ import org.json.JSONException;
 import org.webrtc.MediaStream;
 import org.webrtc.VideoRenderer;
 import org.webrtc.VideoRendererGui;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
+import java.util.List;
 import com.homer.telemed.PeerConnectionClient.PeerConnectionParameters;
 
-import java.util.List;
-
-
-public class VideoChatFragment extends Fragment implements WebRtcClient.RtcListener{
+public class RtcActivity extends Activity implements WebRtcClient.RtcListener {
     private final static int VIDEO_CALL_SENT = 666;
     private static final String VIDEO_CODEC_VP9 = "VP9";
     private static final String AUDIO_CODEC_OPUS = "opus";
@@ -52,13 +46,21 @@ public class VideoChatFragment extends Fragment implements WebRtcClient.RtcListe
     private String callerId;
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        MainActivity.hideKeyboard(getActivity());
-        View view = inflater.inflate(R.layout.fragment_videochat, container, false);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().addFlags(
+                LayoutParams.FLAG_FULLSCREEN
+                        | LayoutParams.FLAG_KEEP_SCREEN_ON
+                        | LayoutParams.FLAG_DISMISS_KEYGUARD
+                        | LayoutParams.FLAG_SHOW_WHEN_LOCKED
+                        | LayoutParams.FLAG_TURN_SCREEN_ON);
+        setContentView(R.layout.fragment_videochat);
         mSocketAddress = "http://" + getResources().getString(R.string.host);
         mSocketAddress += (":" + getResources().getString(R.string.port) + "/");
 
-        vsv = (GLSurfaceView) view.findViewById(R.id.glview_call);
+        vsv = (GLSurfaceView) findViewById(R.id.glview_call);
         vsv.setPreserveEGLContextOnPause(true);
         vsv.setKeepScreenOn(true);
         VideoRendererGui.setView(vsv, new Runnable() {
@@ -76,20 +78,19 @@ public class VideoChatFragment extends Fragment implements WebRtcClient.RtcListe
                 LOCAL_X_CONNECTING, LOCAL_Y_CONNECTING,
                 LOCAL_WIDTH_CONNECTING, LOCAL_HEIGHT_CONNECTING, scalingType, true);
 
-        final Intent intent = getActivity().getIntent();
+        final Intent intent = getIntent();
         final String action = intent.getAction();
 
         if (Intent.ACTION_VIEW.equals(action)) {
             final List<String> segments = intent.getData().getPathSegments();
             callerId = segments.get(0);
         }
-        return view;
     }
 
     private void init() {
         Point displaySize = new Point();
-        //getWindowManager().getDefaultDisplay().getSize(displaySize);
-       PeerConnectionParameters params = new PeerConnectionClient.PeerConnectionParameters(
+        getWindowManager().getDefaultDisplay().getSize(displaySize);
+        PeerConnectionParameters params = new PeerConnectionParameters(
                 true, false, displaySize.x, displaySize.y, 30, 1, VIDEO_CODEC_VP9, true, 1, AUDIO_CODEC_OPUS, true);
 
         client = new WebRtcClient(this, mSocketAddress, params, VideoRendererGui.getEGLContext());
@@ -147,7 +148,7 @@ public class VideoChatFragment extends Fragment implements WebRtcClient.RtcListe
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == VIDEO_CALL_SENT) {
             startCam();
         }
@@ -155,12 +156,17 @@ public class VideoChatFragment extends Fragment implements WebRtcClient.RtcListe
 
     public void startCam() {
         // Camera settings
-        client.start("android_test");
+        client.start("Patient");
     }
 
     @Override
     public void onStatusChanged(final String newStatus) {
-        Toast.makeText(getActivity(), newStatus, Toast.LENGTH_SHORT).show();
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(getApplicationContext(), newStatus, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
@@ -190,5 +196,11 @@ public class VideoChatFragment extends Fragment implements WebRtcClient.RtcListe
                 LOCAL_X_CONNECTING, LOCAL_Y_CONNECTING,
                 LOCAL_WIDTH_CONNECTING, LOCAL_HEIGHT_CONNECTING,
                 scalingType);
+    }
+
+    public void endCall(View view) {
+        Intent intent = new Intent(view.getContext(), MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        view.getContext().startActivity(intent);
     }
 }

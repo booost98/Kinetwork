@@ -95,7 +95,7 @@ public class LoginActivity extends AppCompatActivity {
                                     getTreatmentID(jsonID);
                                 }
 
-                                Intent intent2 = new Intent(LoginActivity.this, MainActivity.class);
+                                Intent intent2 = new Intent(LoginActivity.this, MainActivity.class); //MainActivity.class
                                 Intent intent = new Intent(LoginActivity.this, TherapistActivity.class);
                                 if(jsonHasTherapist == 0){
                                     startActivity(intent);
@@ -119,7 +119,7 @@ public class LoginActivity extends AppCompatActivity {
                 new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(LoginActivity.this, "Error! Pleae check your connection", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "Error! Please check your connection", Toast.LENGTH_SHORT).show();
             }
         })
         {
